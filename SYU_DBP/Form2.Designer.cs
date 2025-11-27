@@ -28,18 +28,29 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem1 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem2 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem3 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem4 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem5 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem6 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem7 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem8 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem33 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem34 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem35 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem36 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem37 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem38 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem39 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem40 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem41 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem42 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem43 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem44 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem45 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem46 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem47 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem48 = new System.Windows.Forms.ListViewItem("");
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.SearchBtn = new System.Windows.Forms.Button();
+            this.Searchstdidtxt = new System.Windows.Forms.TextBox();
             this.StdinfoGridView = new System.Windows.Forms.DataGridView();
+            this.label38 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.Adresstxt = new System.Windows.Forms.TextBox();
             this.label37 = new System.Windows.Forms.Label();
@@ -61,8 +72,20 @@
             this.label1 = new System.Windows.Forms.Label();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.button7 = new System.Windows.Forms.Button();
+            this.textBox7 = new System.Windows.Forms.TextBox();
+            this.label46 = new System.Windows.Forms.Label();
             this.CourselistView = new System.Windows.Forms.ListView();
+            this.수강번호 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.학번 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.학생명 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.과목코드 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.과목명 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.이수학점 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.학기 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.SearchStBtn = new System.Windows.Forms.Button();
+            this.SubjectsSearchBtn = new System.Windows.Forms.Button();
             this.CourseResetBtn = new System.Windows.Forms.Button();
             this.CourseDeleteBtn = new System.Windows.Forms.Button();
             this.CourseUpdateBtn = new System.Windows.Forms.Button();
@@ -81,6 +104,35 @@
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
+            this.tabPage6 = new System.Windows.Forms.TabPage();
+            this.groupBox12 = new System.Windows.Forms.GroupBox();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader3 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader6 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader7 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.button3 = new System.Windows.Forms.Button();
+            this.button4 = new System.Windows.Forms.Button();
+            this.button5 = new System.Windows.Forms.Button();
+            this.button6 = new System.Windows.Forms.Button();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.textBox4 = new System.Windows.Forms.TextBox();
+            this.textBox5 = new System.Windows.Forms.TextBox();
+            this.textBox6 = new System.Windows.Forms.TextBox();
+            this.label39 = new System.Windows.Forms.Label();
+            this.label40 = new System.Windows.Forms.Label();
+            this.label41 = new System.Windows.Forms.Label();
+            this.label42 = new System.Windows.Forms.Label();
+            this.label43 = new System.Windows.Forms.Label();
+            this.label44 = new System.Windows.Forms.Label();
+            this.label45 = new System.Windows.Forms.Label();
             this.tabPage5 = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -148,13 +200,6 @@
             this.label34 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
-            this.수강번호 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.학번 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.학생명 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.과목코드 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.과목명 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.이수학점 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.학기 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -163,6 +208,9 @@
             this.tabPage2.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.groupBox3.SuspendLayout();
+            this.tabPage6.SuspendLayout();
+            this.groupBox12.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.tabPage5.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tabPage3.SuspendLayout();
@@ -175,6 +223,7 @@
             // 
             this.tabControl1.Controls.Add(this.tabPage1);
             this.tabControl1.Controls.Add(this.tabPage2);
+            this.tabControl1.Controls.Add(this.tabPage6);
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
@@ -202,25 +251,57 @@
             // groupBox2
             // 
             this.groupBox2.BackColor = System.Drawing.Color.White;
+            this.groupBox2.Controls.Add(this.SearchBtn);
+            this.groupBox2.Controls.Add(this.Searchstdidtxt);
             this.groupBox2.Controls.Add(this.StdinfoGridView);
+            this.groupBox2.Controls.Add(this.label38);
             this.groupBox2.Location = new System.Drawing.Point(69, 438);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(1640, 358);
+            this.groupBox2.Size = new System.Drawing.Size(1640, 430);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "학생 목록";
+            // 
+            // SearchBtn
+            // 
+            this.SearchBtn.Font = new System.Drawing.Font("함초롬돋움 확장", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.SearchBtn.Location = new System.Drawing.Point(1452, 28);
+            this.SearchBtn.Name = "SearchBtn";
+            this.SearchBtn.Size = new System.Drawing.Size(129, 58);
+            this.SearchBtn.TabIndex = 6;
+            this.SearchBtn.Text = "검색";
+            this.SearchBtn.UseVisualStyleBackColor = true;
+            this.SearchBtn.Click += new System.EventHandler(this.SearchBtn_Click);
+            // 
+            // Searchstdidtxt
+            // 
+            this.Searchstdidtxt.Location = new System.Drawing.Point(1098, 38);
+            this.Searchstdidtxt.Name = "Searchstdidtxt";
+            this.Searchstdidtxt.Size = new System.Drawing.Size(325, 39);
+            this.Searchstdidtxt.TabIndex = 1;
+            this.Searchstdidtxt.TextChanged += new System.EventHandler(this.Searchstdidtxt_TextChanged);
             // 
             // StdinfoGridView
             // 
             this.StdinfoGridView.BackgroundColor = System.Drawing.Color.LightGray;
             this.StdinfoGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.StdinfoGridView.Location = new System.Drawing.Point(118, 66);
+            this.StdinfoGridView.Location = new System.Drawing.Point(118, 110);
             this.StdinfoGridView.Name = "StdinfoGridView";
             this.StdinfoGridView.RowHeadersWidth = 82;
             this.StdinfoGridView.RowTemplate.Height = 37;
             this.StdinfoGridView.Size = new System.Drawing.Size(1395, 264);
             this.StdinfoGridView.TabIndex = 0;
-            this.StdinfoGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.StdinfoGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.DataGridView1_CellClick);
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("함초롬돋움 확장", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label38.Location = new System.Drawing.Point(1013, 45);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(62, 32);
+            this.label38.TabIndex = 0;
+            this.label38.Text = "학번";
             // 
             // groupBox1
             // 
@@ -431,6 +512,9 @@
             // groupBox5
             // 
             this.groupBox5.BackColor = System.Drawing.Color.White;
+            this.groupBox5.Controls.Add(this.button7);
+            this.groupBox5.Controls.Add(this.textBox7);
+            this.groupBox5.Controls.Add(this.label46);
             this.groupBox5.Controls.Add(this.CourselistView);
             this.groupBox5.Location = new System.Drawing.Point(80, 468);
             this.groupBox5.Name = "groupBox5";
@@ -438,6 +522,34 @@
             this.groupBox5.TabIndex = 2;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "수강 목록";
+            // 
+            // button7
+            // 
+            this.button7.Font = new System.Drawing.Font("함초롬돋움 확장", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.button7.Location = new System.Drawing.Point(1426, 40);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(129, 58);
+            this.button7.TabIndex = 9;
+            this.button7.Text = "검색";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.SearchBtn_Click);
+            // 
+            // textBox7
+            // 
+            this.textBox7.Location = new System.Drawing.Point(1072, 50);
+            this.textBox7.Name = "textBox7";
+            this.textBox7.Size = new System.Drawing.Size(325, 39);
+            this.textBox7.TabIndex = 8;
+            // 
+            // label46
+            // 
+            this.label46.AutoSize = true;
+            this.label46.Font = new System.Drawing.Font("함초롬돋움 확장", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label46.Location = new System.Drawing.Point(987, 57);
+            this.label46.Name = "label46";
+            this.label46.Size = new System.Drawing.Size(62, 32);
+            this.label46.TabIndex = 7;
+            this.label46.Text = "학번";
             // 
             // CourselistView
             // 
@@ -453,15 +565,15 @@
             this.CourselistView.Font = new System.Drawing.Font("함초롬바탕 확장", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.CourselistView.HideSelection = false;
             this.CourselistView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem1,
-            listViewItem2,
-            listViewItem3,
-            listViewItem4,
-            listViewItem5,
-            listViewItem6,
-            listViewItem7,
-            listViewItem8});
-            this.CourselistView.Location = new System.Drawing.Point(101, 84);
+            listViewItem33,
+            listViewItem34,
+            listViewItem35,
+            listViewItem36,
+            listViewItem37,
+            listViewItem38,
+            listViewItem39,
+            listViewItem40});
+            this.CourselistView.Location = new System.Drawing.Point(121, 117);
             this.CourselistView.Name = "CourselistView";
             this.CourselistView.Size = new System.Drawing.Size(1434, 305);
             this.CourselistView.TabIndex = 0;
@@ -469,9 +581,46 @@
             this.CourselistView.View = System.Windows.Forms.View.Details;
             this.CourselistView.SelectedIndexChanged += new System.EventHandler(this.CourselistView_SelectedIndexChanged);
             // 
+            // 수강번호
+            // 
+            this.수강번호.Text = "수강번호";
+            this.수강번호.Width = 207;
+            // 
+            // 학번
+            // 
+            this.학번.Text = "학번";
+            this.학번.Width = 205;
+            // 
+            // 학생명
+            // 
+            this.학생명.Text = "학생명";
+            this.학생명.Width = 204;
+            // 
+            // 과목코드
+            // 
+            this.과목코드.Text = "과목코드";
+            this.과목코드.Width = 186;
+            // 
+            // 과목명
+            // 
+            this.과목명.Text = "과목명";
+            this.과목명.Width = 193;
+            // 
+            // 이수학점
+            // 
+            this.이수학점.Text = "이수학점";
+            this.이수학점.Width = 204;
+            // 
+            // 학기
+            // 
+            this.학기.Text = "수강학기";
+            this.학기.Width = 224;
+            // 
             // groupBox3
             // 
             this.groupBox3.BackColor = System.Drawing.Color.LightGray;
+            this.groupBox3.Controls.Add(this.SearchStBtn);
+            this.groupBox3.Controls.Add(this.SubjectsSearchBtn);
             this.groupBox3.Controls.Add(this.CourseResetBtn);
             this.groupBox3.Controls.Add(this.CourseDeleteBtn);
             this.groupBox3.Controls.Add(this.CourseUpdateBtn);
@@ -497,6 +646,26 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "수강 정보 입력";
             // 
+            // SearchStBtn
+            // 
+            this.SearchStBtn.Location = new System.Drawing.Point(485, 106);
+            this.SearchStBtn.Name = "SearchStBtn";
+            this.SearchStBtn.Size = new System.Drawing.Size(129, 58);
+            this.SearchStBtn.TabIndex = 5;
+            this.SearchStBtn.Text = "이름 조회";
+            this.SearchStBtn.UseVisualStyleBackColor = true;
+            this.SearchStBtn.Click += new System.EventHandler(this.SearchStBtn_Click);
+            // 
+            // SubjectsSearchBtn
+            // 
+            this.SubjectsSearchBtn.Location = new System.Drawing.Point(1390, 50);
+            this.SubjectsSearchBtn.Name = "SubjectsSearchBtn";
+            this.SubjectsSearchBtn.Size = new System.Drawing.Size(145, 58);
+            this.SubjectsSearchBtn.TabIndex = 4;
+            this.SubjectsSearchBtn.Text = "과목 조회";
+            this.SubjectsSearchBtn.UseVisualStyleBackColor = true;
+            this.SubjectsSearchBtn.Click += new System.EventHandler(this.SubjectsSearchBtn_Click);
+            // 
             // CourseResetBtn
             // 
             this.CourseResetBtn.Location = new System.Drawing.Point(535, 310);
@@ -505,7 +674,7 @@
             this.CourseResetBtn.TabIndex = 3;
             this.CourseResetBtn.Text = "초기화";
             this.CourseResetBtn.UseVisualStyleBackColor = true;
-            this.CourseResetBtn.Click += new System.EventHandler(this.button5_Click);
+            this.CourseResetBtn.Click += new System.EventHandler(this.CourseReset_Btn_Click);
             // 
             // CourseDeleteBtn
             // 
@@ -515,7 +684,7 @@
             this.CourseDeleteBtn.TabIndex = 3;
             this.CourseDeleteBtn.Text = "삭제";
             this.CourseDeleteBtn.UseVisualStyleBackColor = true;
-            this.CourseDeleteBtn.Click += new System.EventHandler(this.button6_Click);
+            this.CourseDeleteBtn.Click += new System.EventHandler(this.CourseDeleteBtn_Click);
             // 
             // CourseUpdateBtn
             // 
@@ -525,7 +694,7 @@
             this.CourseUpdateBtn.TabIndex = 3;
             this.CourseUpdateBtn.Text = "수정";
             this.CourseUpdateBtn.UseVisualStyleBackColor = true;
-            this.CourseUpdateBtn.Click += new System.EventHandler(this.button7_Click);
+            this.CourseUpdateBtn.Click += new System.EventHandler(this.CourseUpdateBtn_Click);
             // 
             // CourseInsertBtn
             // 
@@ -535,7 +704,7 @@
             this.CourseInsertBtn.TabIndex = 3;
             this.CourseInsertBtn.Text = "추가";
             this.CourseInsertBtn.UseVisualStyleBackColor = true;
-            this.CourseInsertBtn.Click += new System.EventHandler(this.button8_Click);
+            this.CourseInsertBtn.Click += new System.EventHandler(this.CourseInsertBtn_Click);
             // 
             // comboBox3
             // 
@@ -545,14 +714,14 @@
             "2학점",
             "3학점",
             "4학점"});
-            this.comboBox3.Location = new System.Drawing.Point(1141, 188);
+            this.comboBox3.Location = new System.Drawing.Point(1141, 190);
             this.comboBox3.Name = "comboBox3";
             this.comboBox3.Size = new System.Drawing.Size(176, 40);
             this.comboBox3.TabIndex = 2;
             // 
             // Coursecodetxt
             // 
-            this.Coursecodetxt.Location = new System.Drawing.Point(1141, 123);
+            this.Coursecodetxt.Location = new System.Drawing.Point(1141, 60);
             this.Coursecodetxt.Name = "Coursecodetxt";
             this.Coursecodetxt.Size = new System.Drawing.Size(218, 39);
             this.Coursecodetxt.TabIndex = 1;
@@ -560,7 +729,7 @@
             // 
             // Stdidtxt
             // 
-            this.Stdidtxt.Location = new System.Drawing.Point(1141, 57);
+            this.Stdidtxt.Location = new System.Drawing.Point(159, 116);
             this.Stdidtxt.Name = "Stdidtxt";
             this.Stdidtxt.Size = new System.Drawing.Size(301, 39);
             this.Stdidtxt.TabIndex = 1;
@@ -575,14 +744,14 @@
             // 
             // studentNameTxt
             // 
-            this.studentNameTxt.Location = new System.Drawing.Point(159, 116);
+            this.studentNameTxt.Location = new System.Drawing.Point(159, 182);
             this.studentNameTxt.Name = "studentNameTxt";
             this.studentNameTxt.Size = new System.Drawing.Size(187, 39);
             this.studentNameTxt.TabIndex = 1;
             // 
             // Coursenametxt
             // 
-            this.Coursenametxt.Location = new System.Drawing.Point(159, 184);
+            this.Coursenametxt.Location = new System.Drawing.Point(1141, 123);
             this.Coursenametxt.Name = "Coursenametxt";
             this.Coursenametxt.Size = new System.Drawing.Size(291, 39);
             this.Coursenametxt.TabIndex = 1;
@@ -597,7 +766,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(43, 252);
+            this.label11.Location = new System.Drawing.Point(43, 245);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(62, 32);
             this.label11.TabIndex = 0;
@@ -606,7 +775,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(43, 191);
+            this.label6.Location = new System.Drawing.Point(1003, 123);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(86, 32);
             this.label6.TabIndex = 0;
@@ -615,7 +784,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1063, 191);
+            this.label12.Location = new System.Drawing.Point(1014, 193);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(62, 32);
             this.label12.TabIndex = 0;
@@ -624,7 +793,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(1015, 126);
+            this.label7.Location = new System.Drawing.Point(1003, 60);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(110, 32);
             this.label7.TabIndex = 0;
@@ -633,16 +802,16 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(43, 123);
+            this.label8.Location = new System.Drawing.Point(43, 185);
             this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(110, 32);
+            this.label8.Size = new System.Drawing.Size(118, 32);
             this.label8.TabIndex = 0;
-            this.label8.Text = "학생이름";
+            this.label8.Text = "학생 이름";
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(1063, 60);
+            this.label9.Location = new System.Drawing.Point(43, 123);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(62, 32);
             this.label9.TabIndex = 0;
@@ -656,6 +825,274 @@
             this.label10.Size = new System.Drawing.Size(110, 32);
             this.label10.TabIndex = 0;
             this.label10.Text = "수강번호";
+            // 
+            // tabPage6
+            // 
+            this.tabPage6.Controls.Add(this.groupBox12);
+            this.tabPage6.Controls.Add(this.groupBox11);
+            this.tabPage6.Location = new System.Drawing.Point(8, 39);
+            this.tabPage6.Name = "tabPage6";
+            this.tabPage6.Size = new System.Drawing.Size(1805, 1120);
+            this.tabPage6.TabIndex = 5;
+            this.tabPage6.Text = "과목정보";
+            this.tabPage6.UseVisualStyleBackColor = true;
+            // 
+            // groupBox12
+            // 
+            this.groupBox12.BackColor = System.Drawing.Color.White;
+            this.groupBox12.Controls.Add(this.listView1);
+            this.groupBox12.Location = new System.Drawing.Point(77, 475);
+            this.groupBox12.Name = "groupBox12";
+            this.groupBox12.Size = new System.Drawing.Size(1640, 465);
+            this.groupBox12.TabIndex = 3;
+            this.groupBox12.TabStop = false;
+            this.groupBox12.Text = "수강 목록";
+            // 
+            // listView1
+            // 
+            this.listView1.BackColor = System.Drawing.Color.MistyRose;
+            this.listView1.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader1,
+            this.columnHeader2,
+            this.columnHeader3,
+            this.columnHeader4,
+            this.columnHeader5,
+            this.columnHeader6,
+            this.columnHeader7});
+            this.listView1.Font = new System.Drawing.Font("함초롬바탕 확장", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.listView1.HideSelection = false;
+            this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
+            listViewItem41,
+            listViewItem42,
+            listViewItem43,
+            listViewItem44,
+            listViewItem45,
+            listViewItem46,
+            listViewItem47,
+            listViewItem48});
+            this.listView1.Location = new System.Drawing.Point(101, 84);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(1434, 305);
+            this.listView1.TabIndex = 0;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.Details;
+            // 
+            // columnHeader1
+            // 
+            this.columnHeader1.Text = "수강번호";
+            this.columnHeader1.Width = 207;
+            // 
+            // columnHeader2
+            // 
+            this.columnHeader2.Text = "학번";
+            this.columnHeader2.Width = 205;
+            // 
+            // columnHeader3
+            // 
+            this.columnHeader3.Text = "학생명";
+            this.columnHeader3.Width = 204;
+            // 
+            // columnHeader4
+            // 
+            this.columnHeader4.Text = "과목코드";
+            this.columnHeader4.Width = 186;
+            // 
+            // columnHeader5
+            // 
+            this.columnHeader5.Text = "과목명";
+            this.columnHeader5.Width = 193;
+            // 
+            // columnHeader6
+            // 
+            this.columnHeader6.Text = "이수학점";
+            this.columnHeader6.Width = 204;
+            // 
+            // columnHeader7
+            // 
+            this.columnHeader7.Text = "수강학기";
+            this.columnHeader7.Width = 224;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.BackColor = System.Drawing.Color.LightGray;
+            this.groupBox11.Controls.Add(this.button3);
+            this.groupBox11.Controls.Add(this.button4);
+            this.groupBox11.Controls.Add(this.button5);
+            this.groupBox11.Controls.Add(this.button6);
+            this.groupBox11.Controls.Add(this.comboBox1);
+            this.groupBox11.Controls.Add(this.textBox1);
+            this.groupBox11.Controls.Add(this.textBox2);
+            this.groupBox11.Controls.Add(this.textBox3);
+            this.groupBox11.Controls.Add(this.textBox4);
+            this.groupBox11.Controls.Add(this.textBox5);
+            this.groupBox11.Controls.Add(this.textBox6);
+            this.groupBox11.Controls.Add(this.label39);
+            this.groupBox11.Controls.Add(this.label40);
+            this.groupBox11.Controls.Add(this.label41);
+            this.groupBox11.Controls.Add(this.label42);
+            this.groupBox11.Controls.Add(this.label43);
+            this.groupBox11.Controls.Add(this.label44);
+            this.groupBox11.Controls.Add(this.label45);
+            this.groupBox11.Location = new System.Drawing.Point(72, 51);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(1645, 391);
+            this.groupBox11.TabIndex = 2;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "과목 정보 입력";
+            // 
+            // button3
+            // 
+            this.button3.Location = new System.Drawing.Point(535, 310);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(129, 58);
+            this.button3.TabIndex = 3;
+            this.button3.Text = "초기화";
+            this.button3.UseVisualStyleBackColor = true;
+            // 
+            // button4
+            // 
+            this.button4.Location = new System.Drawing.Point(378, 310);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(129, 58);
+            this.button4.TabIndex = 3;
+            this.button4.Text = "삭제";
+            this.button4.UseVisualStyleBackColor = true;
+            // 
+            // button5
+            // 
+            this.button5.Location = new System.Drawing.Point(217, 310);
+            this.button5.Name = "button5";
+            this.button5.Size = new System.Drawing.Size(129, 58);
+            this.button5.TabIndex = 3;
+            this.button5.Text = "수정";
+            this.button5.UseVisualStyleBackColor = true;
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(64, 310);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(129, 58);
+            this.button6.TabIndex = 3;
+            this.button6.Text = "추가";
+            this.button6.UseVisualStyleBackColor = true;
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "전공필수",
+            "전공선택",
+            "교양필수",
+            "교양영역"});
+            this.comboBox1.Location = new System.Drawing.Point(1141, 190);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(176, 32);
+            this.comboBox1.TabIndex = 2;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(1141, 60);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(218, 35);
+            this.textBox1.TabIndex = 1;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(159, 45);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(301, 35);
+            this.textBox2.TabIndex = 1;
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(159, 245);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(291, 35);
+            this.textBox3.TabIndex = 1;
+            // 
+            // textBox4
+            // 
+            this.textBox4.Location = new System.Drawing.Point(159, 182);
+            this.textBox4.Name = "textBox4";
+            this.textBox4.Size = new System.Drawing.Size(187, 35);
+            this.textBox4.TabIndex = 1;
+            // 
+            // textBox5
+            // 
+            this.textBox5.Location = new System.Drawing.Point(1141, 123);
+            this.textBox5.Name = "textBox5";
+            this.textBox5.Size = new System.Drawing.Size(291, 35);
+            this.textBox5.TabIndex = 1;
+            // 
+            // textBox6
+            // 
+            this.textBox6.Location = new System.Drawing.Point(159, 112);
+            this.textBox6.Name = "textBox6";
+            this.textBox6.Size = new System.Drawing.Size(327, 35);
+            this.textBox6.TabIndex = 1;
+            // 
+            // label39
+            // 
+            this.label39.AutoSize = true;
+            this.label39.Location = new System.Drawing.Point(43, 245);
+            this.label39.Name = "label39";
+            this.label39.Size = new System.Drawing.Size(106, 24);
+            this.label39.TabIndex = 0;
+            this.label39.Text = "학과코드";
+            // 
+            // label40
+            // 
+            this.label40.AutoSize = true;
+            this.label40.Location = new System.Drawing.Point(43, 185);
+            this.label40.Name = "label40";
+            this.label40.Size = new System.Drawing.Size(82, 24);
+            this.label40.TabIndex = 0;
+            this.label40.Text = "과목명";
+            // 
+            // label41
+            // 
+            this.label41.AutoSize = true;
+            this.label41.Location = new System.Drawing.Point(995, 193);
+            this.label41.Name = "label41";
+            this.label41.Size = new System.Drawing.Size(106, 24);
+            this.label41.TabIndex = 0;
+            this.label41.Text = "이수구분";
+            // 
+            // label42
+            // 
+            this.label42.AutoSize = true;
+            this.label42.Location = new System.Drawing.Point(1003, 60);
+            this.label42.Name = "label42";
+            this.label42.Size = new System.Drawing.Size(106, 24);
+            this.label42.TabIndex = 0;
+            this.label42.Text = "과목코드";
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Location = new System.Drawing.Point(1003, 126);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(85, 24);
+            this.label43.TabIndex = 0;
+            this.label43.Text = "교수 ID";
+            // 
+            // label44
+            // 
+            this.label44.AutoSize = true;
+            this.label44.Location = new System.Drawing.Point(43, 48);
+            this.label44.Name = "label44";
+            this.label44.Size = new System.Drawing.Size(106, 24);
+            this.label44.TabIndex = 0;
+            this.label44.Text = "수강번호";
+            // 
+            // label45
+            // 
+            this.label45.AutoSize = true;
+            this.label45.Location = new System.Drawing.Point(43, 115);
+            this.label45.Name = "label45";
+            this.label45.Size = new System.Drawing.Size(106, 24);
+            this.label45.TabIndex = 0;
+            this.label45.Text = "과목코드";
             // 
             // tabPage5
             // 
@@ -1306,47 +1743,12 @@
             this.label36.TabIndex = 0;
             this.label36.Text = "심사번호";
             // 
-            // 수강번호
-            // 
-            this.수강번호.Text = "수강번호";
-            this.수강번호.Width = 207;
-            // 
-            // 학번
-            // 
-            this.학번.Text = "학번";
-            this.학번.Width = 205;
-            // 
-            // 학생명
-            // 
-            this.학생명.Text = "학생명";
-            this.학생명.Width = 204;
-            // 
-            // 과목코드
-            // 
-            this.과목코드.Text = "과목코드";
-            this.과목코드.Width = 186;
-            // 
-            // 과목명
-            // 
-            this.과목명.Text = "과목명";
-            this.과목명.Width = 193;
-            // 
-            // 이수학점
-            // 
-            this.이수학점.Text = "이수학점";
-            this.이수학점.Width = 204;
-            // 
-            // 학기
-            // 
-            this.학기.Text = "수강학기";
-            this.학기.Width = 224;
-            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(1830, 1231);
+            this.ClientSize = new System.Drawing.Size(1830, 1043);
             this.Controls.Add(this.tabControl1);
             this.Name = "Form2";
             this.Text = "학적관리시스템 -";
@@ -1354,13 +1756,19 @@
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StdinfoGridView)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
             this.tabPage2.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
+            this.groupBox5.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            this.tabPage6.ResumeLayout(false);
+            this.groupBox12.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.tabPage5.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
@@ -1495,5 +1903,42 @@
         private System.Windows.Forms.ColumnHeader 과목명;
         private System.Windows.Forms.ColumnHeader 이수학점;
         private System.Windows.Forms.ColumnHeader 학기;
+        private System.Windows.Forms.Button SearchBtn;
+        private System.Windows.Forms.TextBox Searchstdidtxt;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Button SearchStBtn;
+        private System.Windows.Forms.Button SubjectsSearchBtn;
+        private System.Windows.Forms.TabPage tabPage6;
+        private System.Windows.Forms.GroupBox groupBox12;
+        private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.ColumnHeader columnHeader1;
+        private System.Windows.Forms.ColumnHeader columnHeader2;
+        private System.Windows.Forms.ColumnHeader columnHeader3;
+        private System.Windows.Forms.ColumnHeader columnHeader4;
+        private System.Windows.Forms.ColumnHeader columnHeader5;
+        private System.Windows.Forms.ColumnHeader columnHeader6;
+        private System.Windows.Forms.ColumnHeader columnHeader7;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.Button button5;
+        private System.Windows.Forms.Button button6;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox textBox5;
+        private System.Windows.Forms.TextBox textBox6;
+        private System.Windows.Forms.Label label39;
+        private System.Windows.Forms.Label label40;
+        private System.Windows.Forms.Label label41;
+        private System.Windows.Forms.Label label42;
+        private System.Windows.Forms.Label label43;
+        private System.Windows.Forms.Label label44;
+        private System.Windows.Forms.Label label45;
+        private System.Windows.Forms.Button button7;
+        private System.Windows.Forms.TextBox textBox7;
+        private System.Windows.Forms.Label label46;
     }
 }

@@ -100,7 +100,7 @@ namespace SYU_DBP
             }
         }
 
-        // [수정됨] 부분 수정 (트랜잭션 + BindByName 적용)
+        // 부분 수정 (과목명/학점)
         public bool UpdateEnrollmentPartial(string studentId, string courseNumber, string currentSemester,
                                             string newCourseName = null, string newSemester = null, int? newCredits = null)
         {
@@ -113,7 +113,6 @@ namespace SYU_DBP
                 {
                     int totalAffected = 0;
 
-                    // 1. 과목명 수정 (Course 테이블)
                     if (newCourseName != null)
                     {
                         using (var cmd = _db.Connection.CreateCommand())
@@ -127,8 +126,6 @@ namespace SYU_DBP
                         }
                     }
 
-                    // 2. 학기 수정 (EnrolledCourse 테이블 - PK 변경)
-                    // 주의: 학기를 변경하면 PK가 바뀌므로, 이후 학점 수정 시 WHERE 절의 학기도 달라져야 함
                     bool semesterChanged = false;
                     if (newSemester != null && newSemester != currentSemester)
                     {
@@ -156,7 +153,6 @@ namespace SYU_DBP
                         }
                     }
 
-                    // 3. 학점 수정 (EnrolledCourse 테이블)
                     if (newCredits.HasValue)
                     {
                         using (var cmd = _db.Connection.CreateCommand())
@@ -192,6 +188,16 @@ namespace SYU_DBP
                     throw; // 에러를 상위로 던져서 메시지 확인 필요 (ORA-00001 등)
                 }
             }
+        }
+
+        // 과목코드만 수정
+        public bool UpdateCourseCode(string courseNumber, string newCourseCode)
+        {
+            const string sql = "UPDATE Course SET course_code = :code WHERE course_number = :cno";
+            var affected = _db.ExecuteNonQuery(sql,
+                new OracleParameter("code", newCourseCode),
+                new OracleParameter("cno", courseNumber));
+            return affected > 0;
         }
 
         // 수강 삭제

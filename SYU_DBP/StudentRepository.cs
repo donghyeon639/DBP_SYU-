@@ -18,6 +18,17 @@ namespace SYU_DBP
             return _db.GetDataTable(sql);
         }
 
+        // 학번으로 학생 조회 (그리드 검색용)
+        public DataTable GetStudentsById(string studentId)
+        {
+            const string sql = @"SELECT s.student_id, s.name, s.department_code,
+                                        (SELECT d.department_name FROM Department d WHERE d.department_code = s.department_code) AS department_name,
+                                        s.grade, s.major, p.phone_number, p.birth_date, p.address
+                                   FROM Student s LEFT JOIN PersonalInfo p ON s.student_id = p.student_id
+                                  WHERE s.student_id = :sid ORDER BY s.student_id";
+            return _db.GetDataTable(sql, new OracleParameter("sid", studentId));
+        }
+
         private string GetDepartmentCodeByName(string departmentName)
         {
             const string sql = "SELECT department_code FROM Department WHERE department_name = :dname";

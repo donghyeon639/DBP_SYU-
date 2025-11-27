@@ -2,6 +2,7 @@
 using System.Data;
 using System.Globalization;
 using System.Windows.Forms;
+using Oracle.DataAccess.Client;
 
 namespace SYU_DBP
 {
@@ -78,6 +79,7 @@ namespace SYU_DBP
             return null;
         }
 
+        // 학생 추가 버튼
         private void InsertBtn_Click(object sender, System.EventArgs e)
         {
             var sid = Stidtxt.Text.Trim();
@@ -113,6 +115,7 @@ namespace SYU_DBP
             }
         }
 
+        // 학생 수정 버튼
         private void UpdateBtn_Click(object sender, System.EventArgs e)
         {
             var sid = Stidtxt.Text.Trim();
@@ -147,6 +150,7 @@ namespace SYU_DBP
             }
         }
 
+        // 학생 삭제 버튼
         private void DeleteBtn_Click(object sender, System.EventArgs e)
         {
             var sid = Stidtxt.Text.Trim();
@@ -265,6 +269,7 @@ namespace SYU_DBP
             Coursecodetxt.Text = string.Empty;
             semestertxt.Text = string.Empty;
             comboBox3.SelectedIndex = -1;
+            studentNameTxt.Text = string.Empty; // 학생 이름도 초기화
         }
 
         private int ParseCourseCredits()
@@ -289,8 +294,8 @@ namespace SYU_DBP
             semestertxt.Text = item.SubItems[6].Text;
         }
 
-        // 추가
-        private void button8_Click(object sender, EventArgs e)
+        // 수강 추가
+        private void CourseInsertBtn_Click(object sender, EventArgs e)
         {
             var courseNumber = Coursenumtxt.Text.Trim();
             var studentId = Stdidtxt.Text.Trim();
@@ -307,42 +312,88 @@ namespace SYU_DBP
             catch (System.Exception ex) { MessageBox.Show("추가 오류: " + ex.Message); }
         }
 
-        // 수정: 선택한 항목 기준으로 부분 수정 허용
-        private void button7_Click(object sender, EventArgs e)
+        // 수강 수정 
+        private void CourseUpdateBtn_Click(object sender, EventArgs e)
         {
+            // 수정 가능 항목: 과목코드(Coursecodetxt), 과목명(Coursenametxt), 학점(comboBox3)
+            // 비활성화 항목: 수강번호(Coursenumtxt), 학번(Stdidtxt), 학기(semestertxt), 학생명(studentNameTxt)
+            Coursenumtxt.Enabled = false;
+            Stdidtxt.Enabled = false;
+            semestertxt.Enabled = false;
+            studentNameTxt.Enabled = false;
+            Coursecodetxt.Enabled = true;
+            Coursenametxt.Enabled = true;
+            comboBox3.Enabled = true;
+
             var courseNumber = Coursenumtxt.Text.Trim();
             var studentId = Stdidtxt.Text.Trim();
             var currentSemester = semestertxt.Text.Trim();
             var newCredits = ParseCourseCredits();
             string newCourseName = string.IsNullOrWhiteSpace(Coursenametxt.Text) ? null : Coursenametxt.Text.Trim();
-            string newSemester = string.IsNullOrWhiteSpace(currentSemester) ? null : currentSemester; // 입력된 학기 그대로 사용
+            string newCourseCode = string.IsNullOrWhiteSpace(Coursecodetxt.Text) ? null : Coursecodetxt.Text.Trim();
 
-            if (string.IsNullOrEmpty(courseNumber) || string.IsNullOrEmpty(studentId) || string.IsNullOrEmpty(currentSemester))
-            { MessageBox.Show("수정할 수강번호/학번/학기를 입력하세요."); return; }
+            if (string.IsNullOrEmpty(courseNumber) || string.IsNullOrEmpty(currentSemester))
+            { MessageBox.Show("수정할 과목번호/과목명이나 학기를 입력하세요."); ReEnableCourseInputs(); return; }
 
-            // 학점도 선택되지 않았다면 null로 처리
             int? creditsParam = newCredits > 0 ? (int?)newCredits : null;
 
             try
             {
-                bool ok = _courses.UpdateEnrollmentPartial(studentId, courseNumber, currentSemester,
-                                                           newCourseName: newCourseName,
-                                                           newSemester: newSemester,
-                                                           newCredits: creditsParam);
-                if (ok) { MessageBox.Show("수강 수정 완료."); LoadCourseList(); }
-                else { MessageBox.Show("변경할 값이 없습니다 또는 실패."); }
+                bool changed = false;
+
+                // 1) 과목코드 변경
+                if (!string.IsNullOrEmpty(newCourseCode))
+                {
+                    if (_courses.UpdateCourseCode(courseNumber, newCourseCode))
+                        changed = true;
+                }
+
+                // 2) 과목명/학점 변경 (학기는 변경 불가 -> newSemester = null)
+                if (newCourseName != null || creditsParam.HasValue)
+                {
+                    bool ok = _courses.UpdateEnrollmentPartial(studentId, courseNumber, currentSemester,
+                                                               newCourseName: newCourseName,
+                                                               newSemester: null, // 학기 변경 금지
+                                                               newCredits: creditsParam);
+                    if (ok) changed = true;
+                }
+
+                if (changed)
+                {
+                    MessageBox.Show("수강 수정 완료.");
+                    LoadCourseList();
+                }
+                else
+                {
+                    MessageBox.Show("변경할 값이 없습니다 또는 실패.");
+                }
             }
             catch (System.Exception ex) { MessageBox.Show("수정 오류: " + ex.Message); }
+            finally
+            {
+                ReEnableCourseInputs();
+            }
         }
 
-        // 삭제
-        private void button6_Click(object sender, EventArgs e)
+        private void ReEnableCourseInputs()
+        {
+            Coursenumtxt.Enabled = true;
+            Stdidtxt.Enabled = true;
+            semestertxt.Enabled = true;
+            studentNameTxt.Enabled = true;
+            Coursecodetxt.Enabled = true;
+            Coursenametxt.Enabled = true;
+            comboBox3.Enabled = true;
+        }
+
+        // 수강 삭제
+        private void CourseDeleteBtn_Click(object sender, EventArgs e)
         {
             var courseNumber = Coursenumtxt.Text.Trim();
             var studentId = Stdidtxt.Text.Trim();
             var semester = semestertxt.Text.Trim();
             if (string.IsNullOrEmpty(courseNumber) || string.IsNullOrEmpty(studentId) || string.IsNullOrEmpty(semester))
-            { MessageBox.Show("삭제할 수강번호/학번/학기를 입력하세요."); return; }
+            { MessageBox.Show("삭제할 수강번호를 입력하세요."); return; }
             if (MessageBox.Show("정말 삭제하시겠습니까?", "확인", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
             try
             {
@@ -353,13 +404,131 @@ namespace SYU_DBP
             catch (System.Exception ex) { MessageBox.Show("삭제 오류: " + ex.Message); }
         }
 
-        private void button5_Click(object sender, EventArgs e) { ClearCourseInputs(); }
+        // 도우미 조회 메서드
+        private string LookupStudentNameById(string studentId)
+        {
+            if (string.IsNullOrWhiteSpace(studentId)) return null;
+            try
+            {
+                const string sql = "SELECT name FROM Student WHERE student_id = :sid";
+                var dt = _db.GetDataTable(sql, new OracleParameter("sid", studentId.Trim()));
+                if (dt.Rows.Count > 0) return dt.Rows[0]["name"].ToString();
+            }
+            catch { }
+            return null;
+        }
 
-        // 디자이너 참조 이벤트 핸들러(빈 구현) 추가
+        private Tuple<string, string> LookupCourseByCode(string courseCode)
+        {
+            if (string.IsNullOrWhiteSpace(courseCode)) return Tuple.Create<string, string>(null, null);
+            try
+            {
+                const string sql = "SELECT course_name, course_number FROM Course WHERE course_code = :cc";
+                var dt = _db.GetDataTable(sql, new OracleParameter("cc", courseCode.Trim()));
+                if (dt.Rows.Count > 0)
+                {
+                    var row = dt.Rows[0];
+                    return Tuple.Create(row["course_name"].ToString(), row["course_number"].ToString());
+                }
+            }
+            catch { }
+            return Tuple.Create<string, string>(null, null);
+        }
+        //학번으로 학생 이름 찾기 버튼
+        private void SearchStBtn_Click(object sender, EventArgs e)
+        {
+            var sid = Stdidtxt.Text.Trim();
+            var name = LookupStudentNameById(sid);
+            if (!string.IsNullOrEmpty(name)) studentNameTxt.Text = name;
+            else MessageBox.Show("학생 이름을 찾을 수 없습니다.");
+        }
+        // 과목코드 옆 과목명 찾기 버튼에서 사용 (명시적 형식 분해)
+        private void SubjectsSearchBtn_Click(object sender, EventArgs e)
+        {
+            var code = Coursecodetxt.Text.Trim();
+            Tuple<string, string> result = LookupCourseByCode(code);
+            string cname = result.Item1;
+            string cnum = result.Item2;
+            if (!string.IsNullOrEmpty(cname))
+            {
+                Coursenametxt.Text = cname;
+                if (!string.IsNullOrEmpty(cnum)) Coursenumtxt.Text = cnum;
+            }
+            else
+            {
+                MessageBox.Show("과목 정보를 찾을 수 없습니다.");
+            }
+        }
+        private void CourseReset_Btn_Click(object sender, EventArgs e)
+        {
+            ClearCourseInputs();
+        }
+
+        // 목록 검색 (학번으로 조회) 및 필터링 로직 
+        private void SearchBtn_Click(object sender, EventArgs e)
+        {
+            // 학생 정보 탭 검색 버튼 또는 수강 정보 탭 검색 버튼 공용 처리
+            if (sender == SearchBtn)
+            {
+                var sidGrid = Searchstdidtxt.Text.Trim();
+                if (string.IsNullOrWhiteSpace(sidGrid))
+                {
+                    LoadStudentGrid();
+                    return;
+                }
+                try
+                {
+                    var dt = _students.GetStudentsById(sidGrid);
+                    StdinfoGridView.DataSource = dt;
+                    if (dt.Rows.Count == 0) MessageBox.Show("해당 학번의 학생이 없습니다.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("학생 검색 오류: " + ex.Message);
+                }
+                return;
+            }
+
+            string sid = null;
+            if (sender == button7) // 수강정보 탭
+                sid = textBox7.Text.Trim();
+            else
+                sid = Searchstdidtxt.Text.Trim(); // fallback
+
+            if (string.IsNullOrWhiteSpace(sid))
+            {
+                MessageBox.Show("학번을 입력하세요.");
+                LoadCourseList();
+                return;
+            }
+
+            var name = LookupStudentNameById(sid);
+            if (string.IsNullOrEmpty(name))
+            {
+                MessageBox.Show("해당 학번 학생이 존재하지 않습니다.");
+                CourselistView.Items.Clear();
+                studentNameTxt.Text = string.Empty;
+                return;
+            }
+
+            LoadCourseList(sid);
+            studentNameTxt.Text = name;
+            if (CourselistView.Items.Count == 0)
+            {
+                MessageBox.Show($"학생 {name} 의 내역이 없습니다.");
+            }
+        }
+
+        // 디자이너 참조 이벤트 핸들러(빈 구현)
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
         private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) { }
         private void textBox4_TextChanged(object sender, EventArgs e) { }
         private void textBox18_TextChanged(object sender, EventArgs e) { }
         private void textBox21_TextChanged(object sender, EventArgs e) { }
+
+        private void Searchstdidtxt_TextChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
