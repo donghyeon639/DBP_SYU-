@@ -9,6 +9,21 @@ namespace SYU_DBP
         private readonly DBClass _db;
         public CourseRepository(DBClass db) { _db = db ?? throw new ArgumentNullException(nameof(db)); }
 
+        private bool ExistsDepartment(string departmentCode)
+        {
+            if (string.IsNullOrWhiteSpace(departmentCode)) return true; // nullable 허용
+            const string sql = "SELECT COUNT(*) FROM Department WHERE department_code = :code";
+            var cnt = Convert.ToInt32(_db.ExecuteScalar(sql, new OracleParameter("code", departmentCode)) ?? 0);
+            return cnt > 0;
+        }
+        private bool ExistsProfessor(string professorId)
+        {
+            if (string.IsNullOrWhiteSpace(professorId)) return true; // nullable 허용
+            const string sql = "SELECT COUNT(*) FROM Professor WHERE professor_id = :pid";
+            var cnt = Convert.ToInt32(_db.ExecuteScalar(sql, new OracleParameter("pid", professorId)) ?? 0);
+            return cnt > 0;
+        }
+
         // 전체 수강 목록
         public DataTable GetEnrolledCourses()
         {
@@ -71,17 +86,13 @@ namespace SYU_DBP
                    AND course_number = :cno 
                    AND semester = :oldSem";
 
-            // DBClass의 ExecuteNonQuery가 BindByName을 지원하지 않을 수 있으므로
-            // 직접 커맨드를 생성하여 처리하거나 파라미터 순서를 완벽하게 맞춰야 합니다.
-            // 여기서는 안전하게 직접 커맨드를 여는 방식을 권장합니다.
-
             _db.Open();
             try
             {
                 using (var cmd = _db.Connection.CreateCommand())
                 {
                     cmd.CommandText = sql;
-                    cmd.BindByName = true; // [중요] 파라미터 이름으로 매핑하도록 강제 설정
+                    cmd.BindByName = true;
 
                     cmd.Parameters.Add(new OracleParameter("newSem", newSemester));
                     cmd.Parameters.Add(new OracleParameter("sid", studentId));
@@ -94,8 +105,7 @@ namespace SYU_DBP
             }
             catch (OracleException ex)
             {
-                // ORA-00001: 무결성 제약 조건 위반 (이미 해당 학기에 수강 내역이 존재할 경우)
-                if (ex.Number == 1) return false;
+                if (ex.Number == 1) return false; // ORA-00001
                 throw;
             }
         }
@@ -118,7 +128,7 @@ namespace SYU_DBP
                         using (var cmd = _db.Connection.CreateCommand())
                         {
                             cmd.Transaction = tx;
-                            cmd.BindByName = true; // [핵심]
+                            cmd.BindByName = true;
                             cmd.CommandText = "UPDATE Course SET course_name = :name WHERE course_number = :cno";
                             cmd.Parameters.Add(new OracleParameter("name", newCourseName));
                             cmd.Parameters.Add(new OracleParameter("cno", courseNumber));
@@ -132,7 +142,7 @@ namespace SYU_DBP
                         using (var cmd = _db.Connection.CreateCommand())
                         {
                             cmd.Transaction = tx;
-                            cmd.BindByName = true; // [핵심]
+                            cmd.BindByName = true;
                             cmd.CommandText = @"UPDATE EnrolledCourse 
                                                    SET semester = :newSem 
                                                  WHERE student_id = :sid 
@@ -158,20 +168,16 @@ namespace SYU_DBP
                         using (var cmd = _db.Connection.CreateCommand())
                         {
                             cmd.Transaction = tx;
-                            cmd.BindByName = true; // [핵심]
+                            cmd.BindByName = true;
                             cmd.CommandText = @"UPDATE EnrolledCourse 
                                                    SET credits = :cr 
                                                  WHERE student_id = :sid 
                                                    AND course_number = :cno 
-                                                   AND semester = :sem"; // 변경된 학기를 기준으로 찾아야 함
+                                                   AND semester = :sem";
 
                             cmd.Parameters.Add(new OracleParameter("cr", newCredits.Value));
                             cmd.Parameters.Add(new OracleParameter("sid", studentId));
                             cmd.Parameters.Add(new OracleParameter("cno", courseNumber));
-
-                            // [중요 로직] 
-                            // 학기가 변경 성공했다면 -> newSemester를 기준으로 검색
-                            // 학기가 변경 안됐거나(null) 실패했다면 -> currentSemester 기준으로 검색
                             string targetSemester = semesterChanged ? newSemester : currentSemester;
                             cmd.Parameters.Add(new OracleParameter("sem", targetSemester));
 
@@ -185,7 +191,7 @@ namespace SYU_DBP
                 catch (Exception)
                 {
                     tx.Rollback();
-                    throw; // 에러를 상위로 던져서 메시지 확인 필요 (ORA-00001 등)
+                    throw;
                 }
             }
         }
@@ -209,6 +215,109 @@ namespace SYU_DBP
                 new OracleParameter("cno", courseNumber),
                 new OracleParameter("sem", semester));
             return affected > 0;
+        }
+
+        // ======== 과목정보 CRUD ========
+        public DataTable GetCourses()
+        {
+            const string sql = @"SELECT course_number, course_code, course_name, credit, course_type,
+                                         department_code, grade_level, professor_id, general_area
+                                   FROM Course ORDER BY course_number";
+            return _db.GetDataTable(sql);
+        }
+
+        // 과목코드로 과목 목록 필터 조회
+        public DataTable GetCoursesByCode(string courseCode)
+        {
+            const string sql = @"SELECT course_number, course_code, course_name, credit, course_type,
+                                         department_code, grade_level, professor_id, general_area
+                                   FROM Course WHERE course_code = :code ORDER BY course_number";
+            return _db.GetDataTable(sql, new OracleParameter("code", courseCode));
+        }
+
+        public bool InsertCourse(string courseNumber, string courseCode, string courseName, int? credit,
+                                 string courseType = null, string departmentCode = null, int? gradeLevel = null,
+                                 string professorId = null, string generalArea = null)
+        {
+            if (!ExistsDepartment(departmentCode)) return false;
+            if (!ExistsProfessor(professorId)) return false;
+
+            const string sql = @"INSERT INTO Course(course_number, course_code, course_name, credit, course_type,
+                                                    department_code, grade_level, professor_id, general_area)
+                                 VALUES(:num, :code, :name, :credit, :ctype, :dept, :grade, :prof, :garea)";
+            int affected = _db.ExecuteNonQuery(sql,
+                new OracleParameter("num", courseNumber),
+                new OracleParameter("code", (object)courseCode ?? DBNull.Value),
+                new OracleParameter("name", (object)courseName ?? DBNull.Value),
+                new OracleParameter("credit", (object)credit ?? DBNull.Value),
+                new OracleParameter("ctype", (object)courseType ?? DBNull.Value),
+                new OracleParameter("dept", (object)departmentCode ?? DBNull.Value),
+                new OracleParameter("grade", (object)gradeLevel ?? DBNull.Value),
+                new OracleParameter("prof", (object)professorId ?? DBNull.Value),
+                new OracleParameter("garea", (object)generalArea ?? DBNull.Value));
+            return affected > 0;
+        }
+
+        public bool UpdateCourse(string courseNumber, string courseCode = null, string courseName = null, int? credit = null,
+                                 string courseType = null, string departmentCode = null, int? gradeLevel = null,
+                                 string professorId = null, string generalArea = null)
+        {
+            if (departmentCode != null && !ExistsDepartment(departmentCode)) return false;
+            if (professorId != null && !ExistsProfessor(professorId)) return false;
+
+            var parts = new System.Collections.Generic.List<string>();
+            var prms = new System.Collections.Generic.List<OracleParameter>();
+            if (courseCode != null) { parts.Add("course_code = :code"); prms.Add(new OracleParameter("code", courseCode)); }
+            if (courseName != null) { parts.Add("course_name = :name"); prms.Add(new OracleParameter("name", courseName)); }
+            if (credit.HasValue) { parts.Add("credit = :credit"); prms.Add(new OracleParameter("credit", credit.Value)); }
+            if (courseType != null) { parts.Add("course_type = :ctype"); prms.Add(new OracleParameter("ctype", courseType)); }
+            if (departmentCode != null) { parts.Add("department_code = :dept"); prms.Add(new OracleParameter("dept", departmentCode)); }
+            if (gradeLevel.HasValue) { parts.Add("grade_level = :grade"); prms.Add(new OracleParameter("grade", gradeLevel.Value)); }
+            if (professorId != null) { parts.Add("professor_id = :prof"); prms.Add(new OracleParameter("prof", professorId)); }
+            if (generalArea != null) { parts.Add("general_area = :garea"); prms.Add(new OracleParameter("garea", generalArea)); }
+            if (parts.Count == 0) return false;
+
+            string sql = "UPDATE Course SET " + string.Join(", ", parts) + " WHERE course_number = :num";
+            prms.Add(new OracleParameter("num", courseNumber));
+            int affected = _db.ExecuteNonQuery(sql, prms.ToArray());
+            return affected > 0;
+        }
+
+        public bool DeleteCourse(string courseNumber)
+        {
+            _db.Open();
+            using (var tx = _db.Connection.BeginTransaction())
+            {
+                try
+                {
+                    using (var delChild = _db.Connection.CreateCommand())
+                    {
+                        delChild.Transaction = tx;
+                        delChild.CommandText = "DELETE FROM EnrolledCourse WHERE course_number = :num";
+                        delChild.Parameters.Add(new OracleParameter("num", courseNumber));
+                        delChild.ExecuteNonQuery();
+                    }
+
+                    using (var delCourse = _db.Connection.CreateCommand())
+                    {
+                        delCourse.Transaction = tx;
+                        delCourse.CommandText = "DELETE FROM Course WHERE course_number = :num";
+                        delCourse.Parameters.Add(new OracleParameter("num", courseNumber));
+                        int affected = delCourse.ExecuteNonQuery();
+                        tx.Commit();
+                        return affected > 0;
+                    }
+                }
+                catch (OracleException ex)
+                {
+                    try { tx.Rollback(); } catch { }
+                    if (ex.Number == 2292)
+                    {
+                        throw new InvalidOperationException("해당 과목을 참조하는 데이터가 있어 삭제할 수 없습니다.");
+                    }
+                    throw;
+                }
+            }
         }
     }
 }
