@@ -12,7 +12,9 @@ namespace SYU_DBP
         private DBClass _db;
         private StudentRepository _students;
         private CourseRepository _courses;
-        private Grade_ScoreReposittory _grades;
+        private Grade_ScoreRepository _grades;
+        private GraduationRequirementRepository _graduationReq;
+        private GraduationReviewRepository _graduationReview; // 추가
         private const string DbUser = "syu";
         private const string DbPass = "1111";
 
@@ -22,9 +24,12 @@ namespace SYU_DBP
             _db = new DBClass(DbUser, DbPass);
             _students = new StudentRepository(_db);
             _courses = new CourseRepository(_db);
-            _grades = new Grade_ScoreReposittory(_db);
+            _grades = new Grade_ScoreRepository(_db);
+            _graduationReq = new GraduationRequirementRepository(_db);
+            _graduationReview = new GraduationReviewRepository(_db); // 초기화
             StdinfoGridView.CellClick += DataGridView1_CellClick;
             CourselistView.SelectedIndexChanged += CourselistView_SelectedIndexChanged;
+            ReviewlistView.SelectedIndexChanged += ReviewlistView_SelectedIndexChanged; // 이벤트 연결
         }
 
         private void Form2_Load(object sender, System.EventArgs e)
@@ -33,6 +38,8 @@ namespace SYU_DBP
             LoadCourseList();
             LoadCourseInfoList();
             LoadGradeList();
+            LoadGraduationRequirementList();
+            LoadGraduationReviewList(); // 심사 목록 로드
         }
 
         private void LoadStudentGrid()
@@ -104,6 +111,61 @@ namespace SYU_DBP
             }
         }
 
+        // ===== 졸업요건 목록 로드 =====
+        private void LoadGraduationRequirementList()
+        {
+            try
+            {
+                var dt = _graduationReq.GetAll();
+                Graduationlistview.Items.Clear();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    // 요구 순서: 졸업ID, 학과코드, 총이수학점, 전공학점, 입학년도, 교양학점, 교양영역 이수횟수, 채플이수횟수, 필수교양상세
+                    var item = new ListViewItem(dr["graduation_id"].ToString());                  // 0 졸업ID
+                    item.SubItems.Add(dr["department_code"].ToString());                        // 1 학과코드
+                    item.SubItems.Add(dr["earned_credits"].ToString());                         // 2 총이수학점
+                    item.SubItems.Add(dr["major_credits"].ToString());                          // 3 전공학점
+                    item.SubItems.Add(dr["admission_year"].ToString());                         // 4 입학년도
+                    item.SubItems.Add(dr["general_credits"].ToString());                        // 5 교양학점
+                    item.SubItems.Add(dr["material_completion_count"].ToString());              // 6 교양영역 이수횟수
+                    item.SubItems.Add(dr["chapel_completion_count"].ToString());                // 7 채플이수횟수
+                    item.SubItems.Add(dr["required_general_details"].ToString());               // 8 필수교양상세
+                    Graduationlistview.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("졸업요건 목록 로드 오류: " + ex.Message);
+            }
+        }
+
+        // ===== 졸업심사 목록 로드 =====
+        private void LoadGraduationReviewList()
+        {
+            try
+            {
+                var dt = _graduationReview.GetAll();
+                ReviewlistView.Items.Clear();
+                foreach (DataRow dr in dt.Rows)
+                {
+                    var item = new ListViewItem(dr["review_id"].ToString()); // 0 심사ID
+                    item.SubItems.Add(dr["student_id"].ToString());          // 1 학번
+                    var schObj = dr["review_schedule"];
+                    item.SubItems.Add(schObj == DBNull.Value ? string.Empty : Convert.ToDateTime(schObj).ToString("yyyy-MM-dd")); // 2 심사일정
+                    item.SubItems.Add(dr["review_result"].ToString());       // 3 심사결과
+                    item.SubItems.Add(dr["reviewer"].ToString());            // 4 심사자
+                    item.SubItems.Add(dr["semester"].ToString());            // 5 학기
+                    item.SubItems.Add(dr["admission_year"].ToString());      // 6 입학연도
+                    item.SubItems.Add(dr["department_code"].ToString());     // 7 학과코드
+                    ReviewlistView.Items.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("졸업심사 목록 로드 오류: " + ex.Message);
+            }
+        }
+
         private void ClearStudentInputs()
         {
             Stidtxt.Text = string.Empty;
@@ -126,14 +188,18 @@ namespace SYU_DBP
             studentNameTxt.Text = string.Empty; // 학생 이름도 초기화
         }
 
-        private void ClearGradeInputs()
+
+        private void GraduationReset()
         {
-            Stdidtxt2.Text = string.Empty;
-            Seemstertxt.Text = string.Empty;
-            CourseNumbertxt.Text = string.Empty;
-            Creditstxt.SelectedIndex = -1;
-            Grade_point_txt.Text = string.Empty;
-            CourseNametxt2.Text = string.Empty;
+            txtGraduationId.Text = string.Empty;
+            txtAdmissionYear.Text = string.Empty;
+            txtDepartmentCode.Text = string.Empty;
+            txtEarnedCredits.Text = string.Empty;
+            txtGeneralCredits.Text = string.Empty;
+            txtMajorCredits.Text = string.Empty;
+            txtMaterialCount.Text = string.Empty;
+            cboGeneralCount.SelectedIndex = -1;
+            if (txtgeneral_details != null) txtgeneral_details.Text = string.Empty;
         }
 
         private int ParseGrade()
@@ -456,7 +522,17 @@ namespace SYU_DBP
             catch { }
             return null;
         }
-
+        private void CourResetBtn_Click(object sender, EventArgs e)
+        {
+            // 과목정보 입력 컨트롤 초기화
+            Courseinfono.Text = string.Empty;           // 수강번호
+            Courinfocodetxt.Text = string.Empty;        // 과목코드
+            Courinfonametxt.Text = string.Empty;        // 과목명
+            DepartmentCodetxt.Text = string.Empty;      // 학과코드
+            Profeidtxt.Text = string.Empty;             // 교수ID
+            course_typetxt.SelectedIndex = -1;          // 이수구분 초기화
+            grade_level_txt.SelectedIndex = -1;         // 수강학년 초기화
+        }
         private Tuple<string, string> LookupCourseByCode(string courseCode)
         {
             if (string.IsNullOrWhiteSpace(courseCode)) return Tuple.Create<string, string>(null, null);
@@ -664,42 +740,7 @@ namespace SYU_DBP
             catch (Exception ex) { MessageBox.Show("삭제 오류: " + ex.Message); }
         }
 
-        private void CourResetBtn_Click(object sender, EventArgs e)
-        {
-            Courseinfono.Text = string.Empty;
-            Courinfocodetxt.Text = string.Empty;
-            Courinfonametxt.Text = string.Empty;
-            course_typetxt.SelectedIndex = -1;
-            grade_level_txt.SelectedIndex = -1;
-            Profeidtxt.Text = string.Empty;
-            DepartmentCodetxt.Text = string.Empty;
-        }
         // ================= 성적정보 영역 ================= //
-
-        private void LoadGrade_scoreList()
-        {
-            try
-            {
-                var dt = _courses.GetCourses();
-                listView1.Items.Clear();
-                foreach (DataRow dr in dt.Rows)
-                {
-                    var item = new ListViewItem(dr["course_code"].ToString()); // columnHeader１
-                    item.SubItems.Add(dr["course_name"].ToString());           // columnHeader２
-                    item.SubItems.Add(dr["course_number"].ToString());         // columnHeader５
-                    item.SubItems.Add(dr["course_type"].ToString());           // columnHeader３
-                    item.SubItems.Add(dr["grade_level"].ToString());           // columnHeader４
-                    item.SubItems.Add(dr["credit"].ToString());                // columnHeader6
-                    item.SubItems.Add(dr["professor_id"].ToString());          // columnHeader7
-                    item.SubItems.Add(dr["department_code"].ToString());       // columnHeader1
-                    listView1.Items.Add(item);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("과목 목록 로드 오류: " + ex.Message);
-            }
-        }
 
         private void GradelistView_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -793,14 +834,6 @@ namespace SYU_DBP
             GradeReset();
         }
 
-        // 디자이너 참조 이벤트 핸들러(빈 구현)
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
-        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) { }
-        private void textBox4_TextChanged(object sender, EventArgs e) { }
-        private void textBox18_TextChanged(object sender, EventArgs e) { }
-        private void textBox21_TextChanged(object sender, EventArgs e) { }
-        private void Searchstdidtxt_TextChanged(object sender, EventArgs e) { }
-
         private void GradeSearchBtn_Click(object sender, EventArgs e)
         {
             var sid = GradeStidtxt.Text.Trim();
@@ -870,10 +903,185 @@ namespace SYU_DBP
                 MessageBox.Show("과목코드 검색 오류: " + ex.Message);
             }
         }
+        // --------------졸업요건 영역---------------------------
 
-        private void GradeStidtxt_TextChanged(object sender, EventArgs e)
+        private void Graduationlistview_SelectedIndexChanged(object sender, EventArgs e)
         {
-
+            if (Graduationlistview.SelectedItems.Count == 0) return;
+            var it = Graduationlistview.SelectedItems[0];
+            // 매핑: 0 졸업ID,1 학과코드,2 총이수학점,3 전공학점,4 입학년도,5 교양학점,6 교양영역 이수횟수,7 채플이수횟수,8 필수교양상세
+            txtGraduationId.Text = it.SubItems[0].Text;
+            txtDepartmentCode.Text = it.SubItems[1].Text;
+            txtEarnedCredits.Text = it.SubItems[2].Text;
+            txtMajorCredits.Text = it.SubItems[3].Text;
+            txtAdmissionYear.Text = it.SubItems[4].Text;
+            txtGeneralCredits.Text = it.SubItems[5].Text;
+            cboGeneralCount.Text = it.SubItems[6].Text; // 교양영역 이수횟수
+            txtMaterialCount.Text = it.SubItems[7].Text; // 채플이수횟수
+            if (txtgeneral_details != null) txtgeneral_details.Text = it.SubItems[8].Text;
         }
+
+        private void BtnGraduationInsert_Click(object sender, EventArgs e)
+        {
+            string gid = txtGraduationId.Text.Trim();
+            if (string.IsNullOrEmpty(gid)) { MessageBox.Show("졸업ID를 입력하세요."); return; }
+            int ay; if (!int.TryParse(txtAdmissionYear.Text.Trim(), out ay)) { MessageBox.Show("입학년도를 숫자로 입력하세요."); return; }
+            string dept = txtDepartmentCode.Text.Trim();
+            int? earned = int.TryParse(txtEarnedCredits.Text.Trim(), out var ec) ? (int?)ec : null;               // earned_credits
+            int? general = int.TryParse(txtGeneralCredits.Text.Trim(), out var gc) ? (int?)gc : null;             // general_credits
+            int? major = int.TryParse(txtMajorCredits.Text.Trim(), out var mc) ? (int?)mc : null;                 // major_credits
+            int? material = int.TryParse(cboGeneralCount.Text.Trim(), out var mat) ? (int?)mat : null;            // material_completion_count (교양영역 이수횟수)
+            string details = txtgeneral_details != null ? txtgeneral_details.Text.Trim() : null;                  // required_general_details
+            int? chapel = int.TryParse(txtMaterialCount.Text.Trim(), out var ch) ? (int?)ch : null;               // chapel_completion_count (채플이수횟수)
+
+            try
+            {
+                if (_graduationReq.Insert(gid, ay, dept, earned, general, major, material, details, chapel))
+                { MessageBox.Show("졸업요건 추가 완료."); LoadGraduationRequirementList(); GraduationReset(); }
+                else MessageBox.Show("개설 실패.");
+            }
+            catch (Exception ex) { MessageBox.Show("추가 오류: " + ex.Message); }
+        }
+
+        private void BtnGraduationUpdate_Click(object sender, EventArgs e)
+        {
+            string gid = txtGraduationId.Text.Trim();
+            if (string.IsNullOrEmpty(gid)) { MessageBox.Show("수정할 졸업ID를 입력하세요."); return; }
+            int? ay = int.TryParse(txtAdmissionYear.Text.Trim(), out var ayv) ? (int?)ayv : null;                 // admission_year
+            string dept = string.IsNullOrWhiteSpace(txtDepartmentCode.Text) ? null : txtDepartmentCode.Text.Trim();
+            int? earned = int.TryParse(txtEarnedCredits.Text.Trim(), out var ec) ? (int?)ec : null;               // earned_credits
+            int? general = int.TryParse(txtGeneralCredits.Text.Trim(), out var gc) ? (int?)gc : null;             // general_credits
+            int? major = int.TryParse(txtMajorCredits.Text.Trim(), out var mc) ? (int?)mc : null;                 // major_credits
+            int? material = int.TryParse(cboGeneralCount.Text.Trim(), out var mat) ? (int?)mat : null;            // material_completion_count
+            string details = txtgeneral_details != null ? txtgeneral_details.Text.Trim() : null;                  // required_general_details
+            int? chapel = int.TryParse(txtMaterialCount.Text.Trim(), out var ch) ? (int?)ch : null;               // chapel_completion_count
+
+            try
+            {
+                if (_graduationReq.Update(gid, ay, dept, earned, general, major, material, details, chapel))
+                { MessageBox.Show("졸업요건 수정 완료."); LoadGraduationRequirementList(); }
+                else MessageBox.Show("변경할 값이 없습니다 또는 실패.");
+            }
+            catch (Exception ex) { MessageBox.Show("수정 오류: " + ex.Message); }
+        }
+
+        private void BtnGraduationDelete_Click(object sender, EventArgs e)
+        {
+            string gid = txtGraduationId.Text.Trim();
+            if (string.IsNullOrEmpty(gid)) { MessageBox.Show("삭제할 졸업ID를 입력하세요."); return; }
+            if (MessageBox.Show("정말 삭제하시겠습니까?", "확인", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+            try
+            {
+                if (_graduationReq.Delete(gid)) { MessageBox.Show("졸업요건 삭제 완료."); LoadGraduationRequirementList(); GraduationReset(); }
+                else MessageBox.Show("삭제 실패.");
+            }
+            catch (Exception ex) { MessageBox.Show("삭제 오류: " + ex.Message); }
+        }
+
+        private void BtnGraduationReset_Click(object sender, EventArgs e)
+        {
+            GraduationReset();
+        }
+
+        // ===== 졸업심사 영역 이벤트 및 메서드 =====
+        private void ReviewlistView_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (ReviewlistView.SelectedItems.Count == 0) return;
+            var it = ReviewlistView.SelectedItems[0];
+            txtReviewId.Text = it.SubItems[0].Text;
+            txtStudentId.Text = it.SubItems[1].Text;
+            dtpReviewSchedule.Text = it.SubItems[2].Text; // 텍스트 값 매핑
+            CBResult.Text = it.SubItems[3].Text;
+            txtReviewer.Text = it.SubItems[4].Text;
+            txtSemester.Text = it.SubItems[5].Text;
+            txtYearAdmission.Text = it.SubItems[6].Text;
+            txtDeptCode.Text = it.SubItems[7].Text;
+        }
+
+        private void reviewInsertBtn_Click(object sender, EventArgs e)
+        {
+            string rid = txtReviewId.Text.Trim();
+            string sid = txtStudentId.Text.Trim();
+            DateTime? rs = null;
+            if (DateTime.TryParseExact(dtpReviewSchedule.Text.Trim(), new[] { "yyyy-MM-dd", "yyyyMMdd" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out var d)) rs = d;
+            string rr = string.IsNullOrWhiteSpace(CBResult.Text) ? null : CBResult.Text.Trim();
+            string rev = string.IsNullOrWhiteSpace(txtReviewer.Text) ? null : txtReviewer.Text.Trim();
+            string sem = string.IsNullOrWhiteSpace(txtSemester.Text) ? null : txtSemester.Text.Trim();
+            int? ay = int.TryParse(txtYearAdmission.Text.Trim(), out var ayv) ? (int?)ayv : null;
+            string dept = string.IsNullOrWhiteSpace(txtDeptCode.Text) ? null : txtDeptCode.Text.Trim();
+            string cno = null; // UI 없음
+
+            if (string.IsNullOrEmpty(rid) || string.IsNullOrEmpty(sid)) { MessageBox.Show("필수 항목(심사ID, 학번)을 입력하세요."); return; }
+
+            try
+            {
+                if (_graduationReview.Insert(rid, sid, rs, rr, rev, cno, sem, ay, dept))
+                { MessageBox.Show("졸업심사 추가 완료."); LoadGraduationReviewList(); ReviewReset(); }
+                else MessageBox.Show("추가 실패.");
+            }
+            catch (Exception ex) { MessageBox.Show("추가 오류: " + ex.Message); }
+        }
+
+        private void reviewUpdateBtn_Click(object sender, EventArgs e)
+        {
+            string rid = txtReviewId.Text.Trim();
+            if (string.IsNullOrEmpty(rid)) { MessageBox.Show("수정할 심사ID를 입력하세요."); return; }
+            string sid = string.IsNullOrWhiteSpace(txtStudentId.Text) ? null : txtStudentId.Text.Trim();
+            DateTime? rs = null;
+            if (DateTime.TryParseExact(dtpReviewSchedule.Text.Trim(), new[] { "yyyy-MM-dd", "yyyyMMdd" }, CultureInfo.InvariantCulture, DateTimeStyles.None, out var d)) rs = d;
+            string rr = string.IsNullOrWhiteSpace(CBResult.Text) ? null : CBResult.Text.Trim();
+            string rev = string.IsNullOrWhiteSpace(txtReviewer.Text) ? null : txtReviewer.Text.Trim();
+            string sem = string.IsNullOrWhiteSpace(txtSemester.Text) ? null : txtSemester.Text.Trim();
+            int? ay = int.TryParse(txtYearAdmission.Text.Trim(), out var ayv) ? (int?)ayv : null;
+            string dept = string.IsNullOrWhiteSpace(txtDeptCode.Text) ? null : txtDeptCode.Text.Trim();
+            string cno = null;
+
+            try
+            {
+                if (_graduationReview.Update(rid, sid, rs, rr, rev, cno, sem, ay, dept))
+                { MessageBox.Show("졸업심사 수정 완료."); LoadGraduationReviewList(); }
+                else MessageBox.Show("변경할 값이 없습니다 또는 실패.");
+            }
+            catch (Exception ex) { MessageBox.Show("수정 오류: " + ex.Message); }
+        }
+
+        private void reviewDeleteBtn_Click(object sender, EventArgs e)
+        {
+            string rid = txtReviewId.Text.Trim();
+            if (string.IsNullOrEmpty(rid)) { MessageBox.Show("삭제할 심사ID를 입력하세요."); return; }
+            if (MessageBox.Show("정말 삭제하시겠습니까?", "확인", MessageBoxButtons.YesNo) != DialogResult.Yes) return;
+            try
+            {
+                if (_graduationReview.Delete(rid)) { MessageBox.Show("졸업심사 삭제 완료."); LoadGraduationReviewList(); ReviewReset(); }
+                else MessageBox.Show("삭제 실패.");
+            }
+            catch (Exception ex) { MessageBox.Show("삭제 오류: " + ex.Message); }
+        }
+
+        private void ReviewResetBtn_Click(object sender, EventArgs e)
+        {
+            ReviewReset();
+        }
+
+        private void ReviewReset()
+        {
+            txtReviewId.Text = string.Empty;
+            txtStudentId.Text = string.Empty;
+            dtpReviewSchedule.Text = string.Empty;
+            CBResult.SelectedIndex = -1;
+            txtReviewer.Text = string.Empty;
+            txtSemester.Text = string.Empty;
+            txtYearAdmission.Text = string.Empty;
+            txtDeptCode.Text = string.Empty;
+        }
+
+        // 디자이너 참조 이벤트 핸들러(빈 구현)
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e) { }
+        private void comboBox1_SelectedIndexChanged(object sender, EventArgs e) { }
+        private void textBox4_TextChanged(object sender, EventArgs e) { }
+        private void textBox18_TextChanged(object sender, EventArgs e) { }
+        private void textBox21_TextChanged(object sender, EventArgs e) { }
+        private void Searchstdidtxt_TextChanged(object sender, EventArgs e) { }
+        private void GradeStidtxt_TextChanged(object sender, EventArgs e){}
     }
 }

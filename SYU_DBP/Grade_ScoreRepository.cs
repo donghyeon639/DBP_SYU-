@@ -4,10 +4,10 @@ using Oracle.DataAccess.Client;
 
 namespace SYU_DBP
 {
-    public class Grade_ScoreReposittory
+    public class Grade_ScoreRepository
     {
         private readonly DBClass _db;
-        public Grade_ScoreReposittory(DBClass db) { _db = db ?? throw new ArgumentNullException(nameof(db)); }
+        public Grade_ScoreRepository(DBClass db) { _db = db ?? throw new ArgumentNullException(nameof(db)); }
 
         // 성적 목록 조회 (폼의 리스트 컬럼 순서에 맞는 컬럼 명을 반환)
         public DataTable GetGrades()

@@ -70,7 +70,9 @@
     <Compile Include="Form3.Designer.cs">
       <DependentUpon>Form3.cs</DependentUpon>
     </Compile>
-    <Compile Include="Grade_ScoreReposittory.cs" />
+    <Compile Include="Grade_ScoreRepository.cs" />
+    <Compile Include="GraduationRequirementRepository.cs" />
+    <Compile Include="GraduationReviewRepository.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
