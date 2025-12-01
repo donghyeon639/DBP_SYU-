@@ -73,11 +73,12 @@ namespace SYU_DBP
                         Form2 newForm = new Form2();
                         newForm.Show();
                     }
-                    else if(stuloginOk)
+                    else if (stuloginOk)
                     {
-                        Form3 newForm = new Form3();
+                        Form3 newForm = new Form3(userId);
                         newForm.Show();
                     }
+
                     else
                     {
                         MessageBox.Show("로그인 실패: 아이디 또는 비밀번호를 확인하세요.");

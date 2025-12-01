@@ -30,51 +30,59 @@
         {
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.tabPage2 = new System.Windows.Forms.TabPage();
-            this.tabPage3 = new System.Windows.Forms.TabPage();
-            this.tabPage4 = new System.Windows.Forms.TabPage();
+            this.UpdatePersonalInfoBtn = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.label6 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
+            this.lbladdress = new System.Windows.Forms.Label();
+            this.lblemail = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.panel2 = new System.Windows.Forms.Panel();
-            this.panel1 = new System.Windows.Forms.Panel();
-            this.panel3 = new System.Windows.Forms.Panel();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
+            this.ㅣ = new System.Windows.Forms.Label();
+            this.lblmajor = new System.Windows.Forms.Label();
+            this.label7 = new System.Windows.Forms.Label();
+            this.lblphone = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.lblgrade = new System.Windows.Forms.Label();
+            this.label6 = new System.Windows.Forms.Label();
+            this.lbldepartment = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label5 = new System.Windows.Forms.Label();
+            this.lblname = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblstudentId = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.listBox1 = new System.Windows.Forms.ListBox();
+            this.panel3 = new System.Windows.Forms.Panel();
+            this.courseNumber = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.panel1 = new System.Windows.Forms.Panel();
+            this.total = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.panel2 = new System.Windows.Forms.Panel();
+            this.average = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.progressBar1 = new System.Windows.Forms.ProgressBar();
+            this.label31 = new System.Windows.Forms.Label();
+            this.label29 = new System.Windows.Forms.Label();
+            this.label22 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
             this.label21 = new System.Windows.Forms.Label();
             this.label23 = new System.Windows.Forms.Label();
             this.label25 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.label32 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
             this.label26 = new System.Windows.Forms.Label();
-            this.panel4 = new System.Windows.Forms.Panel();
-            this.progressBar1 = new System.Windows.Forms.ProgressBar();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label31 = new System.Windows.Forms.Label();
+            this.label24 = new System.Windows.Forms.Label();
+            this.label32 = new System.Windows.Forms.Label();
+            this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.panel5 = new System.Windows.Forms.Panel();
+            this.label34 = new System.Windows.Forms.Label();
+            this.label33 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
             this.label38 = new System.Windows.Forms.Label();
             this.label39 = new System.Windows.Forms.Label();
@@ -84,21 +92,18 @@
             this.label43 = new System.Windows.Forms.Label();
             this.label44 = new System.Windows.Forms.Label();
             this.label45 = new System.Windows.Forms.Label();
-            this.panel5 = new System.Windows.Forms.Panel();
-            this.label33 = new System.Windows.Forms.Label();
-            this.label34 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
-            this.tabPage2.SuspendLayout();
-            this.tabPage3.SuspendLayout();
-            this.tabPage4.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            this.panel2.SuspendLayout();
-            this.panel1.SuspendLayout();
             this.panel3.SuspendLayout();
+            this.panel1.SuspendLayout();
+            this.panel2.SuspendLayout();
+            this.tabPage3.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.panel4.SuspendLayout();
+            this.tabPage4.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.panel5.SuspendLayout();
             this.SuspendLayout();
@@ -115,9 +120,11 @@
             this.tabControl1.Size = new System.Drawing.Size(1833, 726);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
+            this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.tabControl1_SelectedIndexChanged);
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.UpdatePersonalInfoBtn);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(8, 39);
             this.tabPage1.Name = "tabPage1";
@@ -126,6 +133,196 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "개인정보";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // UpdatePersonalInfoBtn
+            // 
+            this.UpdatePersonalInfoBtn.Location = new System.Drawing.Point(348, 564);
+            this.UpdatePersonalInfoBtn.Name = "UpdatePersonalInfoBtn";
+            this.UpdatePersonalInfoBtn.Size = new System.Drawing.Size(118, 42);
+            this.UpdatePersonalInfoBtn.TabIndex = 1;
+            this.UpdatePersonalInfoBtn.Text = "수정";
+            this.UpdatePersonalInfoBtn.UseVisualStyleBackColor = true;
+            this.UpdatePersonalInfoBtn.Click += new System.EventHandler(this.UpdatePersonalInfoBtn_Click);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.lbladdress);
+            this.groupBox1.Controls.Add(this.lblemail);
+            this.groupBox1.Controls.Add(this.label9);
+            this.groupBox1.Controls.Add(this.ㅣ);
+            this.groupBox1.Controls.Add(this.lblmajor);
+            this.groupBox1.Controls.Add(this.label7);
+            this.groupBox1.Controls.Add(this.lblphone);
+            this.groupBox1.Controls.Add(this.label3);
+            this.groupBox1.Controls.Add(this.lblgrade);
+            this.groupBox1.Controls.Add(this.label6);
+            this.groupBox1.Controls.Add(this.lbldepartment);
+            this.groupBox1.Controls.Add(this.label2);
+            this.groupBox1.Controls.Add(this.label5);
+            this.groupBox1.Controls.Add(this.lblname);
+            this.groupBox1.Controls.Add(this.label4);
+            this.groupBox1.Controls.Add(this.lblstudentId);
+            this.groupBox1.Controls.Add(this.label1);
+            this.groupBox1.Location = new System.Drawing.Point(37, 41);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(1748, 455);
+            this.groupBox1.TabIndex = 0;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "학생 개인정보";
+            // 
+            // lbladdress
+            // 
+            this.lbladdress.AutoSize = true;
+            this.lbladdress.Location = new System.Drawing.Point(1144, 315);
+            this.lbladdress.Name = "lbladdress";
+            this.lbladdress.Size = new System.Drawing.Size(58, 24);
+            this.lbladdress.TabIndex = 4;
+            this.lbladdress.Text = "주소";
+            // 
+            // lblemail
+            // 
+            this.lblemail.AutoSize = true;
+            this.lblemail.Location = new System.Drawing.Point(179, 315);
+            this.lblemail.Name = "lblemail";
+            this.lblemail.Size = new System.Drawing.Size(119, 24);
+            this.lblemail.TabIndex = 3;
+            this.lblemail.Text = "syu@ac.kr";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(1015, 315);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(66, 24);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "주소:";
+            // 
+            // ㅣ
+            // 
+            this.ㅣ.AutoSize = true;
+            this.ㅣ.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.ㅣ.Location = new System.Drawing.Point(62, 315);
+            this.ㅣ.Name = "ㅣ";
+            this.ㅣ.Size = new System.Drawing.Size(90, 24);
+            this.ㅣ.TabIndex = 1;
+            this.ㅣ.Text = "이메일:";
+            // 
+            // lblmajor
+            // 
+            this.lblmajor.AutoSize = true;
+            this.lblmajor.Location = new System.Drawing.Point(1144, 224);
+            this.lblmajor.Name = "lblmajor";
+            this.lblmajor.Size = new System.Drawing.Size(86, 24);
+            this.lblmajor.TabIndex = 0;
+            this.lblmajor.Text = "2021년";
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(1015, 224);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(66, 24);
+            this.label7.TabIndex = 0;
+            this.label7.Text = "전공:";
+            // 
+            // lblphone
+            // 
+            this.lblphone.AutoSize = true;
+            this.lblphone.Location = new System.Drawing.Point(179, 224);
+            this.lblphone.Name = "lblphone";
+            this.lblphone.Size = new System.Drawing.Size(179, 24);
+            this.lblphone.TabIndex = 0;
+            this.lblphone.Text = "010-1234-2567";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(62, 224);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(90, 24);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "연락처:";
+            // 
+            // lblgrade
+            // 
+            this.lblgrade.AutoSize = true;
+            this.lblgrade.Location = new System.Drawing.Point(1144, 140);
+            this.lblgrade.Name = "lblgrade";
+            this.lblgrade.Size = new System.Drawing.Size(71, 24);
+            this.lblgrade.TabIndex = 0;
+            this.lblgrade.Text = "3학년";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(1015, 140);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(66, 24);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "학년:";
+            // 
+            // lbldepartment
+            // 
+            this.lbldepartment.AutoSize = true;
+            this.lbldepartment.Location = new System.Drawing.Point(179, 149);
+            this.lbldepartment.Name = "lbldepartment";
+            this.lbldepartment.Size = new System.Drawing.Size(82, 24);
+            this.lbldepartment.TabIndex = 0;
+            this.lbldepartment.Text = "컴퓨터";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(62, 149);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(66, 24);
+            this.label2.TabIndex = 0;
+            this.label2.Text = "학과:";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(1968, 84);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(69, 24);
+            this.label5.TabIndex = 0;
+            this.label5.Text = "label1";
+            // 
+            // lblname
+            // 
+            this.lblname.AutoSize = true;
+            this.lblname.Location = new System.Drawing.Point(1144, 71);
+            this.lblname.Name = "lblname";
+            this.lblname.Size = new System.Drawing.Size(82, 24);
+            this.lblname.TabIndex = 0;
+            this.lblname.Text = "이동현";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(1015, 71);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(66, 24);
+            this.label4.TabIndex = 0;
+            this.label4.Text = "이름:";
+            // 
+            // lblstudentId
+            // 
+            this.lblstudentId.AutoSize = true;
+            this.lblstudentId.Location = new System.Drawing.Point(179, 71);
+            this.lblstudentId.Name = "lblstudentId";
+            this.lblstudentId.Size = new System.Drawing.Size(88, 24);
+            this.lblstudentId.TabIndex = 0;
+            this.lblstudentId.Text = "111111";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(62, 71);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(66, 24);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "학번:";
             // 
             // tabPage2
             // 
@@ -137,49 +334,6 @@
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "수강/성적";
             this.tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // tabPage3
-            // 
-            this.tabPage3.Controls.Add(this.groupBox3);
-            this.tabPage3.Location = new System.Drawing.Point(8, 39);
-            this.tabPage3.Name = "tabPage3";
-            this.tabPage3.Size = new System.Drawing.Size(1817, 679);
-            this.tabPage3.TabIndex = 2;
-            this.tabPage3.Text = "졸업현황";
-            this.tabPage3.UseVisualStyleBackColor = true;
-            // 
-            // tabPage4
-            // 
-            this.tabPage4.Controls.Add(this.groupBox4);
-            this.tabPage4.Location = new System.Drawing.Point(8, 39);
-            this.tabPage4.Name = "tabPage4";
-            this.tabPage4.Size = new System.Drawing.Size(1817, 679);
-            this.tabPage4.TabIndex = 3;
-            this.tabPage4.Text = "졸업심사 현황";
-            this.tabPage4.UseVisualStyleBackColor = true;
-            this.tabPage4.Click += new System.EventHandler(this.tabPage4_Click);
-            // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.label13);
-            this.groupBox1.Controls.Add(this.label7);
-            this.groupBox1.Controls.Add(this.label10);
-            this.groupBox1.Controls.Add(this.label3);
-            this.groupBox1.Controls.Add(this.label12);
-            this.groupBox1.Controls.Add(this.label6);
-            this.groupBox1.Controls.Add(this.label9);
-            this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.label5);
-            this.groupBox1.Controls.Add(this.label11);
-            this.groupBox1.Controls.Add(this.label4);
-            this.groupBox1.Controls.Add(this.label8);
-            this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(37, 41);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(1748, 359);
-            this.groupBox1.TabIndex = 0;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "학생 개인정보";
             // 
             // groupBox2
             // 
@@ -195,175 +349,34 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "학생 수강/성적";
             // 
-            // label1
+            // listBox1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(62, 71);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(66, 24);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "학번:";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(62, 149);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(66, 24);
-            this.label2.TabIndex = 0;
-            this.label2.Text = "학과:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(62, 224);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(90, 24);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "연락처:";
-            // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(1015, 71);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(66, 24);
-            this.label4.TabIndex = 0;
-            this.label4.Text = "이름:";
-            // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(1968, 84);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(69, 24);
-            this.label5.TabIndex = 0;
-            this.label5.Text = "label1";
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(1015, 140);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(58, 24);
-            this.label6.TabIndex = 0;
-            this.label6.Text = "학년";
-            this.label6.Click += new System.EventHandler(this.label6_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(1015, 224);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(106, 24);
-            this.label7.TabIndex = 0;
-            this.label7.Text = "입학년도";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(179, 71);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(88, 24);
-            this.label8.TabIndex = 0;
-            this.label8.Text = "111111";
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(179, 149);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(82, 24);
-            this.label9.TabIndex = 0;
-            this.label9.Text = "컴퓨터";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(179, 224);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(179, 24);
-            this.label10.TabIndex = 0;
-            this.label10.Text = "010-1234-2567";
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(1144, 71);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(82, 24);
-            this.label11.TabIndex = 0;
-            this.label11.Text = "이동현";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(1144, 140);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(71, 24);
-            this.label12.TabIndex = 0;
-            this.label12.Text = "3학년";
-            this.label12.Click += new System.EventHandler(this.label6_Click);
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(1144, 224);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(86, 24);
-            this.label13.TabIndex = 0;
-            this.label13.Text = "2021년";
-            // 
-            // panel2
-            // 
-            this.panel2.BackColor = System.Drawing.Color.White;
-            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.label18);
-            this.panel2.Controls.Add(this.label15);
-            this.panel2.Location = new System.Drawing.Point(592, 34);
-            this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(497, 105);
-            this.panel2.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            this.panel1.BackColor = System.Drawing.Color.White;
-            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.label17);
-            this.panel1.Controls.Add(this.label14);
-            this.panel1.Location = new System.Drawing.Point(23, 34);
-            this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(497, 105);
-            this.panel1.TabIndex = 2;
+            this.listBox1.FormattingEnabled = true;
+            this.listBox1.ItemHeight = 24;
+            this.listBox1.Location = new System.Drawing.Point(34, 167);
+            this.listBox1.Name = "listBox1";
+            this.listBox1.Size = new System.Drawing.Size(1626, 292);
+            this.listBox1.TabIndex = 4;
             // 
             // panel3
             // 
             this.panel3.BackColor = System.Drawing.Color.White;
             this.panel3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel3.Controls.Add(this.label19);
+            this.panel3.Controls.Add(this.courseNumber);
             this.panel3.Controls.Add(this.label16);
             this.panel3.Location = new System.Drawing.Point(1164, 34);
             this.panel3.Name = "panel3";
             this.panel3.Size = new System.Drawing.Size(497, 105);
             this.panel3.TabIndex = 3;
             // 
-            // label14
+            // courseNumber
             // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(16, 11);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(138, 24);
-            this.label14.TabIndex = 0;
-            this.label14.Text = "총 이수학점";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(27, 11);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(114, 24);
-            this.label15.TabIndex = 0;
-            this.label15.Text = "평균 학점";
+            this.courseNumber.AutoSize = true;
+            this.courseNumber.Location = new System.Drawing.Point(33, 56);
+            this.courseNumber.Name = "courseNumber";
+            this.courseNumber.Size = new System.Drawing.Size(82, 24);
+            this.courseNumber.TabIndex = 1;
+            this.courseNumber.Text = "label17";
             // 
             // label16
             // 
@@ -374,41 +387,73 @@
             this.label16.TabIndex = 0;
             this.label16.Text = "수강과목 수";
             // 
-            // label17
+            // panel1
             // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(36, 56);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(82, 24);
-            this.label17.TabIndex = 1;
-            this.label17.Text = "label17";
+            this.panel1.BackColor = System.Drawing.Color.White;
+            this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel1.Controls.Add(this.total);
+            this.panel1.Controls.Add(this.label14);
+            this.panel1.Location = new System.Drawing.Point(23, 34);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(497, 105);
+            this.panel1.TabIndex = 2;
             // 
-            // label18
+            // total
             // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(37, 56);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(82, 24);
-            this.label18.TabIndex = 1;
-            this.label18.Text = "label17";
+            this.total.AutoSize = true;
+            this.total.Location = new System.Drawing.Point(36, 56);
+            this.total.Name = "total";
+            this.total.Size = new System.Drawing.Size(82, 24);
+            this.total.TabIndex = 1;
+            this.total.Text = "label17";
             // 
-            // label19
+            // label14
             // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(33, 56);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(82, 24);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "label17";
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(16, 11);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(138, 24);
+            this.label14.TabIndex = 0;
+            this.label14.Text = "총 이수학점";
             // 
-            // listBox1
+            // panel2
             // 
-            this.listBox1.FormattingEnabled = true;
-            this.listBox1.ItemHeight = 24;
-            this.listBox1.Location = new System.Drawing.Point(34, 167);
-            this.listBox1.Name = "listBox1";
-            this.listBox1.Size = new System.Drawing.Size(1626, 292);
-            this.listBox1.TabIndex = 4;
+            this.panel2.BackColor = System.Drawing.Color.White;
+            this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel2.Controls.Add(this.average);
+            this.panel2.Controls.Add(this.label15);
+            this.panel2.Location = new System.Drawing.Point(592, 34);
+            this.panel2.Name = "panel2";
+            this.panel2.Size = new System.Drawing.Size(497, 105);
+            this.panel2.TabIndex = 1;
+            // 
+            // average
+            // 
+            this.average.AutoSize = true;
+            this.average.Location = new System.Drawing.Point(37, 56);
+            this.average.Name = "average";
+            this.average.Size = new System.Drawing.Size(82, 24);
+            this.average.TabIndex = 1;
+            this.average.Text = "label17";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(27, 11);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(114, 24);
+            this.label15.TabIndex = 0;
+            this.label15.Text = "평균 학점";
+            // 
+            // tabPage3
+            // 
+            this.tabPage3.Controls.Add(this.groupBox3);
+            this.tabPage3.Location = new System.Drawing.Point(8, 39);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(1817, 679);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "졸업현황";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
             // groupBox3
             // 
@@ -431,7 +476,63 @@
             this.groupBox3.TabIndex = 1;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "졸업요건 및 현황";
-            this.groupBox3.Enter += new System.EventHandler(this.groupBox3_Enter);
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.White;
+            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.panel4.Controls.Add(this.progressBar1);
+            this.panel4.Controls.Add(this.label31);
+            this.panel4.Controls.Add(this.label29);
+            this.panel4.Location = new System.Drawing.Point(73, 386);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(1544, 159);
+            this.panel4.TabIndex = 2;
+            // 
+            // progressBar1
+            // 
+            this.progressBar1.BackColor = System.Drawing.Color.Blue;
+            this.progressBar1.Location = new System.Drawing.Point(82, 55);
+            this.progressBar1.Name = "progressBar1";
+            this.progressBar1.Size = new System.Drawing.Size(1372, 76);
+            this.progressBar1.TabIndex = 0;
+            this.progressBar1.Value = 55;
+            // 
+            // label31
+            // 
+            this.label31.AutoSize = true;
+            this.label31.Location = new System.Drawing.Point(195, 17);
+            this.label31.Name = "label31";
+            this.label31.Size = new System.Drawing.Size(57, 24);
+            this.label31.TabIndex = 0;
+            this.label31.Text = "55%";
+            // 
+            // label29
+            // 
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(43, 17);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(146, 24);
+            this.label29.TabIndex = 0;
+            this.label29.Text = "졸업 이슈율:";
+            // 
+            // label22
+            // 
+            this.label22.BackColor = System.Drawing.Color.Black;
+            this.label22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label22.Location = new System.Drawing.Point(968, 97);
+            this.label22.Name = "label22";
+            this.label22.Size = new System.Drawing.Size(693, 3);
+            this.label22.TabIndex = 1;
+            // 
+            // label20
+            // 
+            this.label20.BackColor = System.Drawing.Color.Black;
+            this.label20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.label20.Location = new System.Drawing.Point(55, 98);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(693, 3);
+            this.label20.TabIndex = 1;
             // 
             // label21
             // 
@@ -487,32 +588,14 @@
             this.label30.TabIndex = 0;
             this.label30.Text = "이름:";
             // 
-            // label32
+            // label26
             // 
-            this.label32.AutoSize = true;
-            this.label32.Location = new System.Drawing.Point(60, 143);
-            this.label32.Name = "label32";
-            this.label32.Size = new System.Drawing.Size(66, 24);
-            this.label32.TabIndex = 0;
-            this.label32.Text = "학번:";
-            // 
-            // label20
-            // 
-            this.label20.BackColor = System.Drawing.Color.Black;
-            this.label20.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label20.Location = new System.Drawing.Point(55, 98);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(693, 3);
-            this.label20.TabIndex = 1;
-            // 
-            // label22
-            // 
-            this.label22.BackColor = System.Drawing.Color.Black;
-            this.label22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.label22.Location = new System.Drawing.Point(968, 97);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(693, 3);
-            this.label22.TabIndex = 1;
+            this.label26.AutoSize = true;
+            this.label26.Location = new System.Drawing.Point(964, 53);
+            this.label26.Name = "label26";
+            this.label26.Size = new System.Drawing.Size(162, 24);
+            this.label26.TabIndex = 0;
+            this.label26.Text = "현재 이수현황";
             // 
             // label24
             // 
@@ -523,53 +606,24 @@
             this.label24.TabIndex = 0;
             this.label24.Text = "졸업요건";
             // 
-            // label26
+            // label32
             // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(964, 53);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(162, 24);
-            this.label26.TabIndex = 0;
-            this.label26.Text = "현재 이수현황";
+            this.label32.AutoSize = true;
+            this.label32.Location = new System.Drawing.Point(60, 143);
+            this.label32.Name = "label32";
+            this.label32.Size = new System.Drawing.Size(66, 24);
+            this.label32.TabIndex = 0;
+            this.label32.Text = "학번:";
             // 
-            // panel4
+            // tabPage4
             // 
-            this.panel4.BackColor = System.Drawing.Color.White;
-            this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel4.Controls.Add(this.progressBar1);
-            this.panel4.Controls.Add(this.label31);
-            this.panel4.Controls.Add(this.label29);
-            this.panel4.Location = new System.Drawing.Point(73, 386);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(1544, 159);
-            this.panel4.TabIndex = 2;
-            // 
-            // progressBar1
-            // 
-            this.progressBar1.BackColor = System.Drawing.Color.Blue;
-            this.progressBar1.Location = new System.Drawing.Point(82, 55);
-            this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(1372, 76);
-            this.progressBar1.TabIndex = 0;
-            this.progressBar1.Value = 55;
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(43, 17);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(146, 24);
-            this.label29.TabIndex = 0;
-            this.label29.Text = "졸업 이슈율:";
-            // 
-            // label31
-            // 
-            this.label31.AutoSize = true;
-            this.label31.Location = new System.Drawing.Point(195, 17);
-            this.label31.Name = "label31";
-            this.label31.Size = new System.Drawing.Size(57, 24);
-            this.label31.TabIndex = 0;
-            this.label31.Text = "55%";
+            this.tabPage4.Controls.Add(this.groupBox4);
+            this.tabPage4.Location = new System.Drawing.Point(8, 39);
+            this.tabPage4.Name = "tabPage4";
+            this.tabPage4.Size = new System.Drawing.Size(1817, 679);
+            this.tabPage4.TabIndex = 3;
+            this.tabPage4.Text = "졸업심사 현황";
+            this.tabPage4.UseVisualStyleBackColor = true;
             // 
             // groupBox4
             // 
@@ -590,6 +644,37 @@
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "졸업심사 현황";
+            // 
+            // panel5
+            // 
+            this.panel5.BackColor = System.Drawing.Color.Khaki;
+            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel5.Controls.Add(this.label34);
+            this.panel5.Controls.Add(this.label33);
+            this.panel5.Location = new System.Drawing.Point(75, 229);
+            this.panel5.Name = "panel5";
+            this.panel5.Size = new System.Drawing.Size(1597, 202);
+            this.panel5.TabIndex = 1;
+            // 
+            // label34
+            // 
+            this.label34.AutoSize = true;
+            this.label34.Font = new System.Drawing.Font("굴림", 16.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label34.Location = new System.Drawing.Point(699, 82);
+            this.label34.Name = "label34";
+            this.label34.Size = new System.Drawing.Size(151, 43);
+            this.label34.TabIndex = 0;
+            this.label34.Text = "심사중";
+            // 
+            // label33
+            // 
+            this.label33.AutoSize = true;
+            this.label33.Font = new System.Drawing.Font("Microsoft Sans Serif", 10.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label33.Location = new System.Drawing.Point(714, 15);
+            this.label33.Name = "label33";
+            this.label33.Size = new System.Drawing.Size(107, 33);
+            this.label33.TabIndex = 0;
+            this.label33.Text = "졸업 심사";
             // 
             // label37
             // 
@@ -672,37 +757,6 @@
             this.label45.TabIndex = 0;
             this.label45.Text = "심사번호:";
             // 
-            // panel5
-            // 
-            this.panel5.BackColor = System.Drawing.Color.Khaki;
-            this.panel5.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel5.Controls.Add(this.label34);
-            this.panel5.Controls.Add(this.label33);
-            this.panel5.Location = new System.Drawing.Point(75, 229);
-            this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1597, 202);
-            this.panel5.TabIndex = 1;
-            // 
-            // label33
-            // 
-            this.label33.AutoSize = true;
-            this.label33.Font = new System.Drawing.Font("함초롬돋움 확장", 10.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label33.Location = new System.Drawing.Point(714, 15);
-            this.label33.Name = "label33";
-            this.label33.Size = new System.Drawing.Size(121, 38);
-            this.label33.TabIndex = 0;
-            this.label33.Text = "졸업 심사";
-            // 
-            // label34
-            // 
-            this.label34.AutoSize = true;
-            this.label34.Font = new System.Drawing.Font("굴림", 16.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label34.Location = new System.Drawing.Point(699, 82);
-            this.label34.Name = "label34";
-            this.label34.Size = new System.Drawing.Size(151, 43);
-            this.label34.TabIndex = 0;
-            this.label34.Text = "심사중";
-            // 
             // Form3
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
@@ -711,24 +765,25 @@
             this.Controls.Add(this.tabControl1);
             this.Name = "Form3";
             this.Text = "Form3";
+            this.Load += new System.EventHandler(this.Form3_Load);
             this.tabControl1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage2.ResumeLayout(false);
-            this.tabPage3.ResumeLayout(false);
-            this.tabPage4.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
-            this.panel2.ResumeLayout(false);
-            this.panel2.PerformLayout();
-            this.panel1.ResumeLayout(false);
-            this.panel1.PerformLayout();
             this.panel3.ResumeLayout(false);
             this.panel3.PerformLayout();
+            this.panel1.ResumeLayout(false);
+            this.panel1.PerformLayout();
+            this.panel2.ResumeLayout(false);
+            this.panel2.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
+            this.tabPage4.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.panel5.ResumeLayout(false);
@@ -753,12 +808,12 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label lblmajor;
+        private System.Windows.Forms.Label lblphone;
+        private System.Windows.Forms.Label lblgrade;
+        private System.Windows.Forms.Label lbldepartment;
+        private System.Windows.Forms.Label lblname;
+        private System.Windows.Forms.Label lblstudentId;
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.Panel panel1;
@@ -766,9 +821,9 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.ListBox listBox1;
-        private System.Windows.Forms.Label label19;
-        private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.Label label18;
+        private System.Windows.Forms.Label courseNumber;
+        private System.Windows.Forms.Label total;
+        private System.Windows.Forms.Label average;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label21;
@@ -798,5 +853,10 @@
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.Label label33;
+        private System.Windows.Forms.Label lbladdress;
+        private System.Windows.Forms.Label lblemail;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label ㅣ;
+        private System.Windows.Forms.Button UpdatePersonalInfoBtn;
     }
 }
