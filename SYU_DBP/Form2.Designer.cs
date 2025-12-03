@@ -28,22 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.ListViewItem listViewItem65 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem66 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem67 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem68 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem69 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem70 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem71 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem72 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem73 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem74 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem75 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem76 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem77 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem78 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem79 = new System.Windows.Forms.ListViewItem("");
-            System.Windows.Forms.ListViewItem listViewItem80 = new System.Windows.Forms.ListViewItem("");
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.ListViewItem listViewItem33 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem34 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem35 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem36 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem37 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem38 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem39 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem40 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem41 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem42 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem43 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem44 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem45 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem46 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem47 = new System.Windows.Forms.ListViewItem("");
+            System.Windows.Forms.ListViewItem listViewItem48 = new System.Windows.Forms.ListViewItem("");
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -203,6 +204,15 @@
             this.label28 = new System.Windows.Forms.Label();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.ReviewlistView = new System.Windows.Forms.ListView();
+            this.columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader20 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader21 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader22 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader26 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader23 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader24 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.CBResult = new System.Windows.Forms.ComboBox();
             this.ReviewResetBtn = new System.Windows.Forms.Button();
@@ -224,15 +234,21 @@
             this.label32 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
-            this.ReviewlistView = new System.Windows.Forms.ListView();
-            this.columnHeader19 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader20 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader21 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader22 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader23 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader24 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader25 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader26 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.tabPage7 = new System.Windows.Forms.TabPage();
+            this.groupBox13 = new System.Windows.Forms.GroupBox();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.button1 = new System.Windows.Forms.Button();
+            this.label29 = new System.Windows.Forms.Label();
+            this.listViewInquiryManage = new System.Windows.Forms.ListView();
+            this.columnHeader27 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader28 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader29 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader30 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader31 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader32 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.columnHeader33 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.문의답변ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -253,6 +269,9 @@
             this.tabPage4.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.tabPage7.SuspendLayout();
+            this.groupBox13.SuspendLayout();
+            this.contextMenuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabControl1
@@ -263,6 +282,7 @@
             this.tabControl1.Controls.Add(this.tabPage5);
             this.tabControl1.Controls.Add(this.tabPage3);
             this.tabControl1.Controls.Add(this.tabPage4);
+            this.tabControl1.Controls.Add(this.tabPage7);
             this.tabControl1.Location = new System.Drawing.Point(-3, 52);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
@@ -601,14 +621,14 @@
             this.CourselistView.Font = new System.Drawing.Font("함초롬바탕 확장", 10.125F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.CourselistView.HideSelection = false;
             this.CourselistView.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem65,
-            listViewItem66,
-            listViewItem67,
-            listViewItem68,
-            listViewItem69,
-            listViewItem70,
-            listViewItem71,
-            listViewItem72});
+            listViewItem33,
+            listViewItem34,
+            listViewItem35,
+            listViewItem36,
+            listViewItem37,
+            listViewItem38,
+            listViewItem39,
+            listViewItem40});
             this.CourselistView.Location = new System.Drawing.Point(121, 117);
             this.CourselistView.Name = "CourselistView";
             this.CourselistView.Size = new System.Drawing.Size(1434, 305);
@@ -930,14 +950,14 @@
             this.listView1.Font = new System.Drawing.Font("함초롬바탕 확장", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.listView1.HideSelection = false;
             this.listView1.Items.AddRange(new System.Windows.Forms.ListViewItem[] {
-            listViewItem73,
-            listViewItem74,
-            listViewItem75,
-            listViewItem76,
-            listViewItem77,
-            listViewItem78,
-            listViewItem79,
-            listViewItem80});
+            listViewItem41,
+            listViewItem42,
+            listViewItem43,
+            listViewItem44,
+            listViewItem45,
+            listViewItem46,
+            listViewItem47,
+            listViewItem48});
             this.listView1.Location = new System.Drawing.Point(97, 125);
             this.listView1.Name = "listView1";
             this.listView1.Size = new System.Drawing.Size(1434, 305);
@@ -1791,6 +1811,67 @@
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "졸업요건 목록";
             // 
+            // ReviewlistView
+            // 
+            this.ReviewlistView.BackColor = System.Drawing.Color.MistyRose;
+            this.ReviewlistView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader19,
+            this.columnHeader20,
+            this.columnHeader21,
+            this.columnHeader22,
+            this.columnHeader26,
+            this.columnHeader23,
+            this.columnHeader24,
+            this.columnHeader25});
+            this.ReviewlistView.HideSelection = false;
+            this.ReviewlistView.Location = new System.Drawing.Point(97, 59);
+            this.ReviewlistView.Name = "ReviewlistView";
+            this.ReviewlistView.Size = new System.Drawing.Size(1483, 248);
+            this.ReviewlistView.TabIndex = 0;
+            this.ReviewlistView.UseCompatibleStateImageBehavior = false;
+            this.ReviewlistView.View = System.Windows.Forms.View.Details;
+            this.ReviewlistView.SelectedIndexChanged += new System.EventHandler(this.ReviewlistView_SelectedIndexChanged);
+            // 
+            // columnHeader19
+            // 
+            this.columnHeader19.Text = "심사번호";
+            this.columnHeader19.Width = 173;
+            // 
+            // columnHeader20
+            // 
+            this.columnHeader20.Text = "학번";
+            this.columnHeader20.Width = 151;
+            // 
+            // columnHeader21
+            // 
+            this.columnHeader21.Text = "심사일자";
+            this.columnHeader21.Width = 168;
+            // 
+            // columnHeader22
+            // 
+            this.columnHeader22.Text = "심사결과";
+            this.columnHeader22.Width = 183;
+            // 
+            // columnHeader26
+            // 
+            this.columnHeader26.Text = "심사자";
+            this.columnHeader26.Width = 165;
+            // 
+            // columnHeader23
+            // 
+            this.columnHeader23.Text = "대상 학기";
+            this.columnHeader23.Width = 169;
+            // 
+            // columnHeader24
+            // 
+            this.columnHeader24.Text = "입학연도";
+            this.columnHeader24.Width = 161;
+            // 
+            // columnHeader25
+            // 
+            this.columnHeader25.Text = "학과코드";
+            this.columnHeader25.Width = 249;
+            // 
             // groupBox9
             // 
             this.groupBox9.BackColor = System.Drawing.Color.LightGray;
@@ -1994,66 +2075,132 @@
             this.label36.TabIndex = 0;
             this.label36.Text = "심사번호";
             // 
-            // ReviewlistView
+            // tabPage7
             // 
-            this.ReviewlistView.BackColor = System.Drawing.Color.MistyRose;
-            this.ReviewlistView.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader19,
-            this.columnHeader20,
-            this.columnHeader21,
-            this.columnHeader22,
-            this.columnHeader26,
-            this.columnHeader23,
-            this.columnHeader24,
-            this.columnHeader25});
-            this.ReviewlistView.HideSelection = false;
-            this.ReviewlistView.Location = new System.Drawing.Point(97, 59);
-            this.ReviewlistView.Name = "ReviewlistView";
-            this.ReviewlistView.Size = new System.Drawing.Size(1483, 248);
-            this.ReviewlistView.TabIndex = 0;
-            this.ReviewlistView.UseCompatibleStateImageBehavior = false;
-            this.ReviewlistView.View = System.Windows.Forms.View.Details;
-            this.ReviewlistView.SelectedIndexChanged += new System.EventHandler(this.ReviewlistView_SelectedIndexChanged);
+            this.tabPage7.Controls.Add(this.groupBox13);
+            this.tabPage7.Location = new System.Drawing.Point(8, 39);
+            this.tabPage7.Name = "tabPage7";
+            this.tabPage7.Size = new System.Drawing.Size(1805, 1120);
+            this.tabPage7.TabIndex = 6;
+            this.tabPage7.Text = "문의";
+            this.tabPage7.UseVisualStyleBackColor = true;
             // 
-            // columnHeader19
+            // groupBox13
             // 
-            this.columnHeader19.Text = "심사번호";
-            this.columnHeader19.Width = 173;
+            this.groupBox13.BackColor = System.Drawing.Color.White;
+            this.groupBox13.Controls.Add(this.comboBox1);
+            this.groupBox13.Controls.Add(this.button1);
+            this.groupBox13.Controls.Add(this.label29);
+            this.groupBox13.Controls.Add(this.listViewInquiryManage);
+            this.groupBox13.Location = new System.Drawing.Point(56, 79);
+            this.groupBox13.Name = "groupBox13";
+            this.groupBox13.Size = new System.Drawing.Size(1645, 808);
+            this.groupBox13.TabIndex = 6;
+            this.groupBox13.TabStop = false;
+            this.groupBox13.Text = "문의 목록";
             // 
-            // columnHeader20
+            // comboBox1
             // 
-            this.columnHeader20.Text = "학번";
-            this.columnHeader20.Width = 151;
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "전체",
+            "대기중",
+            "처리중",
+            "답변완료"});
+            this.comboBox1.Location = new System.Drawing.Point(232, 83);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(185, 32);
+            this.comboBox1.TabIndex = 3;
             // 
-            // columnHeader21
+            // button1
             // 
-            this.columnHeader21.Text = "심사일자";
-            this.columnHeader21.Width = 168;
+            this.button1.Location = new System.Drawing.Point(440, 75);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(180, 45);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "검색";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // columnHeader22
+            // label29
             // 
-            this.columnHeader22.Text = "심사결과";
-            this.columnHeader22.Width = 183;
+            this.label29.AutoSize = true;
+            this.label29.Location = new System.Drawing.Point(98, 85);
+            this.label29.Name = "label29";
+            this.label29.Size = new System.Drawing.Size(106, 24);
+            this.label29.TabIndex = 1;
+            this.label29.Text = "상태필터";
             // 
-            // columnHeader23
+            // listViewInquiryManage
             // 
-            this.columnHeader23.Text = "대상 학기";
-            this.columnHeader23.Width = 169;
+            this.listViewInquiryManage.BackColor = System.Drawing.Color.MistyRose;
+            this.listViewInquiryManage.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.columnHeader27,
+            this.columnHeader28,
+            this.columnHeader29,
+            this.columnHeader30,
+            this.columnHeader31,
+            this.columnHeader32,
+            this.columnHeader33});
+            this.listViewInquiryManage.HideSelection = false;
+            this.listViewInquiryManage.Location = new System.Drawing.Point(91, 157);
+            this.listViewInquiryManage.Name = "listViewInquiryManage";
+            this.listViewInquiryManage.Size = new System.Drawing.Size(1483, 420);
+            this.listViewInquiryManage.TabIndex = 0;
+            this.listViewInquiryManage.UseCompatibleStateImageBehavior = false;
+            this.listViewInquiryManage.View = System.Windows.Forms.View.Details;
+            this.listViewInquiryManage.SelectedIndexChanged += new System.EventHandler(this.listViewInquiryManage_SelectedIndexChanged);
             // 
-            // columnHeader24
+            // columnHeader27
             // 
-            this.columnHeader24.Text = "입학연도";
-            this.columnHeader24.Width = 161;
+            this.columnHeader27.Text = "문의번호";
+            this.columnHeader27.Width = 173;
             // 
-            // columnHeader25
+            // columnHeader28
             // 
-            this.columnHeader25.Text = "학과코드";
-            this.columnHeader25.Width = 249;
+            this.columnHeader28.Text = "학번";
+            this.columnHeader28.Width = 151;
             // 
-            // columnHeader26
+            // columnHeader29
             // 
-            this.columnHeader26.Text = "심사자";
-            this.columnHeader26.Width = 165;
+            this.columnHeader29.Text = "학생명";
+            this.columnHeader29.Width = 168;
+            // 
+            // columnHeader30
+            // 
+            this.columnHeader30.Text = "유형";
+            this.columnHeader30.Width = 183;
+            // 
+            // columnHeader31
+            // 
+            this.columnHeader31.Text = "제목";
+            this.columnHeader31.Width = 165;
+            // 
+            // columnHeader32
+            // 
+            this.columnHeader32.Text = "작성일";
+            this.columnHeader32.Width = 169;
+            // 
+            // columnHeader33
+            // 
+            this.columnHeader33.Text = "상태";
+            this.columnHeader33.Width = 161;
+            // 
+            // contextMenuStrip1
+            // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(32, 32);
+            this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.문의답변ToolStripMenuItem});
+            this.contextMenuStrip1.Name = "contextMenuStrip1";
+            this.contextMenuStrip1.Size = new System.Drawing.Size(301, 86);
+            this.contextMenuStrip1.Opening += new System.ComponentModel.CancelEventHandler(this.contextMenuStrip1_Opening);
+            // 
+            // 문의답변ToolStripMenuItem
+            // 
+            this.문의답변ToolStripMenuItem.Name = "문의답변ToolStripMenuItem";
+            this.문의답변ToolStripMenuItem.Size = new System.Drawing.Size(300, 38);
+            this.문의답변ToolStripMenuItem.Text = "문의 답변";
+            this.문의답변ToolStripMenuItem.Click += new System.EventHandler(this.문의답변ToolStripMenuItem_Click);
             // 
             // Form2
             // 
@@ -2095,6 +2242,10 @@
             this.groupBox10.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.tabPage7.ResumeLayout(false);
+            this.groupBox13.ResumeLayout(false);
+            this.groupBox13.PerformLayout();
+            this.contextMenuStrip1.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2290,5 +2441,20 @@
         private System.Windows.Forms.ColumnHeader columnHeader23;
         private System.Windows.Forms.ColumnHeader columnHeader24;
         private System.Windows.Forms.ColumnHeader columnHeader25;
+        private System.Windows.Forms.TabPage tabPage7;
+        private System.Windows.Forms.GroupBox groupBox13;
+        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Label label29;
+        private System.Windows.Forms.ListView listViewInquiryManage;
+        private System.Windows.Forms.ColumnHeader columnHeader27;
+        private System.Windows.Forms.ColumnHeader columnHeader28;
+        private System.Windows.Forms.ColumnHeader columnHeader29;
+        private System.Windows.Forms.ColumnHeader columnHeader30;
+        private System.Windows.Forms.ColumnHeader columnHeader31;
+        private System.Windows.Forms.ColumnHeader columnHeader32;
+        private System.Windows.Forms.ColumnHeader columnHeader33;
+        private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem 문의답변ToolStripMenuItem;
     }
 }

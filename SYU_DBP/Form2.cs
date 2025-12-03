@@ -14,7 +14,8 @@ namespace SYU_DBP
         private CourseRepository _courses;
         private Grade_ScoreRepository _grades;
         private GraduationRequirementRepository _graduationReq;
-        private GraduationReviewRepository _graduationReview; // 추가
+        private GraduationReviewRepository _graduationReview;
+        private InquiryRepository _inquiry; // 추가
         private const string DbUser = "syu";
         private const string DbPass = "1111";
 
@@ -26,10 +27,12 @@ namespace SYU_DBP
             _courses = new CourseRepository(_db);
             _grades = new Grade_ScoreRepository(_db);
             _graduationReq = new GraduationRequirementRepository(_db);
-            _graduationReview = new GraduationReviewRepository(_db); // 초기화
+            _graduationReview = new GraduationReviewRepository(_db);
+            _inquiry = new InquiryRepository(_db); // 초기화
+            
             StdinfoGridView.CellClick += DataGridView1_CellClick;
             CourselistView.SelectedIndexChanged += CourselistView_SelectedIndexChanged;
-            ReviewlistView.SelectedIndexChanged += ReviewlistView_SelectedIndexChanged; // 이벤트 연결
+            ReviewlistView.SelectedIndexChanged += ReviewlistView_SelectedIndexChanged;
         }
 
         private void Form2_Load(object sender, System.EventArgs e)
@@ -39,7 +42,8 @@ namespace SYU_DBP
             LoadCourseInfoList();
             LoadGradeList();
             LoadGraduationRequirementList();
-            LoadGraduationReviewList(); // 심사 목록 로드
+            LoadGraduationReviewList();
+            LoadInquiryManagementTab(); // 문의 관리 탭 로드 추가
         }
 
         private void LoadStudentGrid()
@@ -1083,5 +1087,331 @@ namespace SYU_DBP
         private void textBox21_TextChanged(object sender, EventArgs e) { }
         private void Searchstdidtxt_TextChanged(object sender, EventArgs e) { }
         private void GradeStidtxt_TextChanged(object sender, EventArgs e){}
+
+        // 문의목록 답변 폼 5로 이동
+        private void contextMenuStrip1_Opening(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+
+        }
+
+        // ============================================
+        // 문의 관리 영역 (새로 추가)
+        // ============================================
+
+        /// <summary>
+        /// 문의 관리 탭 초기 로드
+        /// </summary>
+        private void LoadInquiryManagementTab()
+        {
+            try
+            {
+                // 상태 필터 콤보박스 초기화 (comboBox1)
+                if (comboBox1 != null && comboBox1.Items.Count == 0)
+                {
+                    comboBox1.Items.AddRange(new object[] { "전체", "대기중", "처리중", "답변완료" });
+                    comboBox1.SelectedIndex = 0;
+                }
+
+                // ContextMenuStrip은 디자이너에서 이미 설정되어 있음
+                // contextMenuStrip1의 "문의답변" 메뉴는 문의답변ToolStripMenuItem_Click과 연결됨
+
+                // ListView에 ContextMenuStrip 연결 (디자이너에서 설정되어 있다면 생략 가능)
+                var listView = this.Controls.Find("listViewInquiryManage", true).FirstOrDefault() as ListView;
+                if (listView != null && listView.ContextMenuStrip == null)
+                {
+                    listView.ContextMenuStrip = contextMenuStrip1;
+                }
+
+                // 초기 문의 목록 로드
+                LoadAllInquiries();
+                LoadInquiryStats();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("문의 관리 탭 초기화 오류: " + ex.Message, "오류");
+            }
+        }
+
+        /// <summary>
+        /// 전체 문의 목록 로드
+        /// </summary>
+        private void LoadAllInquiries()
+        {
+            try
+            {
+                var listView = this.Controls.Find("listViewInquiryManage", true).FirstOrDefault() as ListView;
+                if (listView == null)
+                {
+                    MessageBox.Show("문의 목록 ListView를 찾을 수 없습니다.", "오류");
+                    return;
+                }
+
+                DataTable dt = _inquiry.GetAllInquiries();
+                listView.Items.Clear();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ListViewItem item = new ListViewItem(row["inquiry_id"].ToString());
+                        item.SubItems.Add(row["student_id"].ToString());
+                        item.SubItems.Add(row["student_name"].ToString());
+                        item.SubItems.Add(row["category"].ToString());
+                        item.SubItems.Add(row["title"].ToString());
+                        item.SubItems.Add(row["inquiry_date"].ToString());
+                        item.SubItems.Add(row["status"].ToString());
+
+                        // 상태에 따라 색상 변경
+                        string status = row["status"].ToString();
+                        if (status == "대기중")
+                            item.ForeColor = System.Drawing.Color.Red;
+                        else if (status == "처리중")
+                            item.ForeColor = System.Drawing.Color.Orange;
+                        else if (status == "답변완료")
+                            item.ForeColor = System.Drawing.Color.Green;
+
+                        // Tag에 전체 데이터 저장 (Form5로 전달하기 위해)
+                        item.Tag = row;
+
+                        listView.Items.Add(item);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("문의 목록 로드 오류: " + ex.Message, "오류");
+            }
+        }
+
+        /// <summary>
+        /// 상태별 문의 필터링
+        /// </summary>
+        private void FilterInquiriesByStatus(string status)
+        {
+            try
+            {
+                var listView = this.Controls.Find("listViewInquiryManage", true).FirstOrDefault() as ListView;
+                if (listView == null) return;
+
+                DataTable dt;
+
+                if (status == "전체")
+                {
+                    dt = _inquiry.GetAllInquiries();
+                }
+                else
+                {
+                    dt = _inquiry.GetInquiriesByStatus(status);
+                }
+
+                listView.Items.Clear();
+
+                if (dt != null && dt.Rows.Count > 0)
+                {
+                    foreach (DataRow row in dt.Rows)
+                    {
+                        ListViewItem item = new ListViewItem(row["inquiry_id"].ToString());
+                        item.SubItems.Add(row["student_id"].ToString());
+                        item.SubItems.Add(row["student_name"].ToString());
+                        item.SubItems.Add(row["category"].ToString());
+                        item.SubItems.Add(row["title"].ToString());
+                        item.SubItems.Add(row["inquiry_date"].ToString());
+                        item.SubItems.Add(row["status"].ToString());
+
+                        string rowStatus = row["status"].ToString();
+                        if (rowStatus == "대기중")
+                            item.ForeColor = System.Drawing.Color.Red;
+                        else if (rowStatus == "처리중")
+                            item.ForeColor = System.Drawing.Color.Orange;
+                        else if (rowStatus == "답변완료")
+                            item.ForeColor = System.Drawing.Color.Green;
+
+                        item.Tag = row;
+                        listView.Items.Add(item);
+                    }
+                }
+                else
+                {
+                    MessageBox.Show($"'{status}' 상태의 문의가 없습니다.", "알림");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("필터링 오류: " + ex.Message, "오류");
+            }
+        }
+
+        /// <summary>
+        /// 문의 통계 로드 (대시보드)
+        /// </summary>
+        private void LoadInquiryStats()
+        {
+            try
+            {
+                // 대기중 건수
+                int pendingCount = _inquiry.GetPendingInquiryCount();
+                
+                // 처리중 건수
+                DataTable dtProcessing = _inquiry.GetInquiriesByStatus("처리중");
+                int processingCount = dtProcessing != null ? dtProcessing.Rows.Count : 0;
+
+                // 답변완료 건수
+                DataTable dtCompleted = _inquiry.GetInquiriesByStatus("답변완료");
+                int completedCount = dtCompleted != null ? dtCompleted.Rows.Count : 0;
+
+                // 라벨 업데이트 (디자이너에서 생성한 라벨)
+                var lblPending = this.Controls.Find("lblPendingCount", true).FirstOrDefault() as Label;
+                var lblProcessing = this.Controls.Find("lblProcessingCount", true).FirstOrDefault() as Label;
+                var lblCompleted = this.Controls.Find("lblCompletedCount", true).FirstOrDefault() as Label;
+
+                if (lblPending != null) lblPending.Text = $"대기중: {pendingCount}건";
+                if (lblProcessing != null) lblProcessing.Text = $"처리중: {processingCount}건";
+                if (lblCompleted != null) lblCompleted.Text = $"답변완료: {completedCount}건";
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("통계 로드 오류: " + ex.Message, "오류");
+            }
+        }
+
+        /// <summary>
+        /// ContextMenuStrip - "문의 답변" 클릭 시 Form5 열기
+        /// </summary>
+        private void MenuItemAnswer_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var listView = this.Controls.Find("listViewInquiryManage", true).FirstOrDefault() as ListView;
+                if (listView == null || listView.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("문의를 선택해주세요.", "선택 오류");
+                    return;
+                }
+
+                // 선택된 항목에서 inquiry_id 추출
+                ListViewItem selectedItem = listView.SelectedItems[0];
+                string inquiryId = selectedItem.SubItems[0].Text; // 첫 번째 컬럼: inquiry_id
+
+                // Form5 열기 (inquiry_id 전달)
+                Form5 form5 = new Form5(inquiryId);
+                DialogResult result = form5.ShowDialog();
+
+                // Form5가 닫힌 후 목록 새로고침 (답변이 등록되었을 경우)
+                if (result == DialogResult.OK)
+                {
+                    LoadAllInquiries();
+                    LoadInquiryStats();
+                    MessageBox.Show("답변이 처리되었습니다. 목록이 새로고침되었습니다.", "완료");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("문의 답변 폼 열기 오류: " + ex.Message + "\n\n" + ex.StackTrace, "오류");
+            }
+        }
+
+        /// <summary>
+        /// 문의 상태 변경
+        /// </summary>
+        private void ChangeInquiryStatus(string newStatus)
+        {
+            try
+            {
+                var listView = this.Controls.Find("listViewInquiryManage", true).FirstOrDefault() as ListView;
+                if (listView == null || listView.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("문의를 선택해주세요.", "선택 오류");
+                    return;
+                }
+
+                string inquiryId = listView.SelectedItems[0].Text;
+                string currentStatus = listView.SelectedItems[0].SubItems[6].Text;
+
+                if (currentStatus == newStatus)
+                {
+                    MessageBox.Show($"이미 '{newStatus}' 상태입니다.", "알림");
+                    return;
+                }
+
+                DialogResult result = MessageBox.Show(
+                    $"문의 상태를 '{newStatus}'(으)로 변경하시겠습니까?",
+                    "상태 변경 확인",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result != DialogResult.Yes) return;
+
+                bool success = _inquiry.UpdateStatus(inquiryId, newStatus);
+
+                if (success)
+                {
+                    MessageBox.Show("상태가 변경되었습니다.", "성공");
+                    LoadAllInquiries();
+                    LoadInquiryStats();
+                }
+                else
+                {
+                    MessageBox.Show("상태 변경에 실패했습니다.", "오류");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("상태 변경 오류: " + ex.Message, "오류");
+            }
+        }
+
+        /// <summary>
+        /// 필터 버튼 클릭 이벤트 (button1) - comboBox1 사용
+        /// </summary>
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (comboBox1 != null && comboBox1.SelectedIndex >= 0)
+            {
+                string selectedStatus = comboBox1.SelectedItem.ToString();
+                FilterInquiriesByStatus(selectedStatus);
+            }
+        }
+
+        private void listViewInquiryManage_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // ListView 선택 변경 시 필요한 로직 (선택사항)
+        }
+
+        /// <summary>
+        /// ContextMenuStrip - "문의답변" 메뉴 클릭 이벤트
+        /// </summary>
+        private void 문의답변ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var listView = this.Controls.Find("listViewInquiryManage", true).FirstOrDefault() as ListView;
+                if (listView == null || listView.SelectedItems.Count == 0)
+                {
+                    MessageBox.Show("문의를 선택해주세요.", "선택 오류");
+                    return;
+                }
+
+                // 선택된 항목에서 inquiry_id 추출
+                ListViewItem selectedItem = listView.SelectedItems[0];
+                string inquiryId = selectedItem.SubItems[0].Text; // 첫 번째 컬럼: inquiry_id
+
+                // Form5 열기 (inquiry_id 전달)
+                Form5 form5 = new Form5(inquiryId);
+                DialogResult result = form5.ShowDialog();
+
+                // Form5가 닫힌 후 목록 새로고침 (답변이 등록되었을 경우)
+                if (result == DialogResult.OK)
+                {
+                    LoadAllInquiries();
+                    LoadInquiryStats();
+                    MessageBox.Show("답변이 처리되었습니다. 목록이 새로고침되었습니다.", "완료");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("문의 답변 폼 열기 오류: " + ex.Message + "\n\n" + ex.StackTrace, "오류");
+            }
+        }
     }
 }

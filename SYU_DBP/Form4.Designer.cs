@@ -38,12 +38,13 @@ namespace SYU_DBP
             this.UpdatePersonalInfo = new System.Windows.Forms.Button();
             this.Password = new System.Windows.Forms.Label();
             this.PasswordtxtBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Address
             // 
             this.Address.AutoSize = true;
-            this.Address.Location = new System.Drawing.Point(169, 144);
+            this.Address.Location = new System.Drawing.Point(193, 251);
             this.Address.Name = "Address";
             this.Address.Size = new System.Drawing.Size(58, 24);
             this.Address.TabIndex = 0;
@@ -52,7 +53,7 @@ namespace SYU_DBP
             // Phone
             // 
             this.Phone.AutoSize = true;
-            this.Phone.Location = new System.Drawing.Point(169, 219);
+            this.Phone.Location = new System.Drawing.Point(193, 326);
             this.Phone.Name = "Phone";
             this.Phone.Size = new System.Drawing.Size(106, 24);
             this.Phone.TabIndex = 1;
@@ -61,7 +62,7 @@ namespace SYU_DBP
             // Email
             // 
             this.Email.AutoSize = true;
-            this.Email.Location = new System.Drawing.Point(169, 310);
+            this.Email.Location = new System.Drawing.Point(193, 417);
             this.Email.Name = "Email";
             this.Email.Size = new System.Drawing.Size(82, 24);
             this.Email.TabIndex = 2;
@@ -69,28 +70,28 @@ namespace SYU_DBP
             // 
             // AddresstxtBox
             // 
-            this.AddresstxtBox.Location = new System.Drawing.Point(383, 132);
+            this.AddresstxtBox.Location = new System.Drawing.Point(407, 239);
             this.AddresstxtBox.Name = "AddresstxtBox";
-            this.AddresstxtBox.Size = new System.Drawing.Size(100, 35);
+            this.AddresstxtBox.Size = new System.Drawing.Size(196, 35);
             this.AddresstxtBox.TabIndex = 3;
             // 
             // PhonetxtBox
             // 
-            this.PhonetxtBox.Location = new System.Drawing.Point(383, 219);
+            this.PhonetxtBox.Location = new System.Drawing.Point(407, 326);
             this.PhonetxtBox.Name = "PhonetxtBox";
-            this.PhonetxtBox.Size = new System.Drawing.Size(100, 35);
+            this.PhonetxtBox.Size = new System.Drawing.Size(196, 35);
             this.PhonetxtBox.TabIndex = 4;
             // 
             // EmailtxtBox
             // 
-            this.EmailtxtBox.Location = new System.Drawing.Point(383, 307);
+            this.EmailtxtBox.Location = new System.Drawing.Point(407, 414);
             this.EmailtxtBox.Name = "EmailtxtBox";
-            this.EmailtxtBox.Size = new System.Drawing.Size(100, 35);
+            this.EmailtxtBox.Size = new System.Drawing.Size(196, 35);
             this.EmailtxtBox.TabIndex = 5;
             // 
             // UpdatePersonalInfo
             // 
-            this.UpdatePersonalInfo.Location = new System.Drawing.Point(253, 449);
+            this.UpdatePersonalInfo.Location = new System.Drawing.Point(277, 556);
             this.UpdatePersonalInfo.Name = "UpdatePersonalInfo";
             this.UpdatePersonalInfo.Size = new System.Drawing.Size(162, 49);
             this.UpdatePersonalInfo.TabIndex = 6;
@@ -101,7 +102,7 @@ namespace SYU_DBP
             // Password
             // 
             this.Password.AutoSize = true;
-            this.Password.Location = new System.Drawing.Point(169, 382);
+            this.Password.Location = new System.Drawing.Point(193, 489);
             this.Password.Name = "Password";
             this.Password.Size = new System.Drawing.Size(106, 24);
             this.Password.TabIndex = 7;
@@ -109,16 +110,27 @@ namespace SYU_DBP
             // 
             // PasswordtxtBox
             // 
-            this.PasswordtxtBox.Location = new System.Drawing.Point(383, 382);
+            this.PasswordtxtBox.Location = new System.Drawing.Point(407, 489);
             this.PasswordtxtBox.Name = "PasswordtxtBox";
-            this.PasswordtxtBox.Size = new System.Drawing.Size(100, 35);
+            this.PasswordtxtBox.Size = new System.Drawing.Size(196, 35);
             this.PasswordtxtBox.TabIndex = 8;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("굴림", 10.875F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label1.Location = new System.Drawing.Point(261, 155);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(265, 29);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "학생 개인정보 수정";
             // 
             // Form4
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(13F, 24F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1252, 798);
+            this.ClientSize = new System.Drawing.Size(804, 798);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.PasswordtxtBox);
             this.Controls.Add(this.Password);
             this.Controls.Add(this.UpdatePersonalInfo);
@@ -146,5 +158,6 @@ namespace SYU_DBP
         private System.Windows.Forms.Button UpdatePersonalInfo;
         private System.Windows.Forms.Label Password;
         private System.Windows.Forms.TextBox PasswordtxtBox;
+        private System.Windows.Forms.Label label1;
     }
 }

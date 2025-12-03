@@ -1,5 +1,4 @@
-﻿
-using Oracle.DataAccess.Client;
+﻿using Oracle.DataAccess.Client;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,9 +20,12 @@ namespace SYU_DBP
         private bool isTab3Loaded = false; // 졸업현황
         private bool isTab4Loaded = false; // 졸업심사 현황
         private bool isTab5Loaded = false;
+        private bool isTab6Loaded = false; // 학생 문의 탭
 
         private DataTable cachedCourseResults = null;     // 검색 결과를 저장할 메모리 테이블
         private string selectedCourseNumber = string.Empty; // 선택된 과목의 PK 저장
+
+        private InquiryRepository _inquiryRepo;
 
         public Form3(string studentId)
         {
@@ -45,8 +47,16 @@ namespace SYU_DBP
 
         private void UpdatePersonalInfoBtn_Click(object sender, EventArgs e)
         {
-            var Form4 = new Form4(_studentId);
-            Form4.Show();
+            // Form3에 로드된 학생 정보를 Form4로 전달
+            string address = lbladdress.Text;
+            string phone = lblphone.Text;
+            string email = lblemail.Text;
+
+            var form4 = new Form4(_studentId, address, phone, email);
+            form4.ShowDialog(); // 모달 창으로 표시
+            
+            // Form4가 닫힌 후 개인정보를 다시 로드하여 변경사항 반영
+            LoadPersonalInfo();
         }
 
        
@@ -84,6 +94,14 @@ namespace SYU_DBP
                     {
                         LoadGraduationSimulation();
                         isTab4Loaded = true;
+                    }
+                    break;
+
+                case 4: // 학생 문의 탭
+                    if (!isTab6Loaded)
+                    {
+                        LoadInquiryTab();
+                        isTab6Loaded = true;
                     }
                     break;
             }
@@ -141,9 +159,6 @@ namespace SYU_DBP
                         lblphone.Text = row["PHONE_NUMBER"].ToString();
                         lbladdress.Text = row["ADDRESS"].ToString();
                         //lblbirth.Text = Convert.ToDateTime(row["BIRTH_DATE"]).ToString("yyyy-MM-dd");
-
-                        // 디버깅 용
-                        MessageBox.Show($"학생 ID {_studentId}의 정보를 성공적으로 로드했습니다.", "로드 완료");
                     }
                     else
                     {
@@ -158,18 +173,17 @@ namespace SYU_DBP
         }
         private void LoadGradesAndStats()
         {
-            // ... (통계 쿼리용 매개변수 및 통계 쿼리는 별도로 작성해야 합니다.)
             OracleParameter pIdDetail = new OracleParameter("sid", _studentId);
 
-            // 1. 상세 과목 목록 쿼리 (ListBox 채우기) - 6개 항목 포함
+            // 1. 상세 과목 목록 쿼리 (ListView2 채우기)
             string detailQuery = @"
         SELECT 
+            C.course_number,    -- 수강번호
             C.course_code,      -- 과목코드
             C.course_name,      -- 과목명
-            G.credits,          -- 학점
-            G.grade_point,      -- 성적 (점수)
-            G.semester,         -- 수강학기
-            C.general_area      -- 교양영역
+            G.credits,          -- 이수학점
+            G.grade_point,      -- 성적
+            C.course_type       -- 이수구분
         FROM
             Grade G
         JOIN 
@@ -179,9 +193,7 @@ namespace SYU_DBP
         ORDER BY
             G.semester DESC, C.course_code";
 
-
-            // 2. 통계 정보 쿼리 (상단 패널 채우기) - SUM, AVG, COUNT
-            // [Credit(학점)의 합계, Grade_point(성적)의 평균, 과목 수(COUNT)]를 계산합니다.
+            // 2. 통계 정보 쿼리 (상단 패널 채우기)
             OracleParameter pIdStat = new OracleParameter("sid", _studentId);
             string statQuery = @"
         SELECT 
@@ -197,63 +209,66 @@ namespace SYU_DBP
             {
                 using (var db = new DBClass("syu", "1111"))
                 {
-                    // A. 통계 데이터 로드 및 출력 (추가된 부분)
+                    // A. 통계 데이터 로드 및 출력
                     DataTable dtStats = db.GetDataTable(statQuery, pIdStat);
 
                     if (dtStats != null && dtStats.Rows.Count > 0)
                     {
                         DataRow stats = dtStats.Rows[0];
 
-                        // DBNull 체크: 수강 기록이 없는 경우를 대비 (SUM, AVG는 NULL 반환 가능)
-                        // 만약 NULL이면 0으로 처리합니다.
                         decimal totalCr = stats["TOTAL_CREDITS"] != DBNull.Value ? Convert.ToDecimal(stats["TOTAL_CREDITS"]) : 0m;
                         decimal avgGr = stats["AVERAGE_GRADE"] != DBNull.Value ? Convert.ToDecimal(stats["AVERAGE_GRADE"]) : 0m;
                         int courseCnt = stats["COURSE_COUNT"] != DBNull.Value ? Convert.ToInt32(stats["COURSE_COUNT"]) : 0;
 
-                        // 상단 라벨에 값 매핑 (디자이너 분석 기반)
-                        total.Text = totalCr.ToString("F1");              // 총 이수학점 (예: 60.0)
-                        average.Text = avgGr.ToString("F2");                // 평균 학점 (예: 3.85)
-                        courseNumber.Text = courseCnt.ToString();           // 수강 과목 수
+                        total.Text = totalCr.ToString("F1");          // 총 이수학점
+                        average.Text = avgGr.ToString("F2");          // 평균 학점
+                        courseNumber.Text = courseCnt.ToString();     // 수강 과목 수
                     }
                     else
                     {
-                        // 데이터가 없을 때 기본값 설정 (수강 기록이 없는 경우)
                         total.Text = "0.0";
                         average.Text = "0.00";
                         courseNumber.Text = "0";
                     }
 
-                    // B. 상세 데이터 로드 및 ListBox 출력
+                    // B. ListView2 설정 및 데이터 로드
+                    listView2.Items.Clear();
+                    listView2.View = View.Details;
+                    listView2.FullRowSelect = true;
+                    listView2.GridLines = true;
+
+                    // 디자이너에 이미 컬럼이 정의되어 있으므로 컬럼 추가는 생략
+                    // columnHeader7: 수강번호
+                    // columnHeader8: 과목코드
+                    // columnHeader9: 과목명
+                    // columnHeader10: 이수학점
+                    // columnHeader11: 성적
+                    // columnHeader14: 이수구분
+
                     DataTable dtDetails = db.GetDataTable(detailQuery, pIdDetail);
-                    listBox1.Items.Clear();
 
                     if (dtDetails != null && dtDetails.Rows.Count > 0)
                     {
-                        // 헤더 출력
-                        string header = string.Format("{0,-12}{1,-25}{2,8}{3,8}{4,12}{5,15}",
-                                                      "코드", "과목명", "학점", "성적", "수강학기", "영역");
-                        listBox1.Items.Add(header);
-                        listBox1.Items.Add(new string('=', 70));
-
                         foreach (DataRow row in dtDetails.Rows)
                         {
-                            // 성적은 소수점 둘째 자리까지 포맷팅 (DECIMAL(3,2)이므로)
-                            string gradePoint = Convert.ToDecimal(row["grade_point"]).ToString("F2");
+                            // 성적은 소수점 둘째 자리까지 포맷팅
+                            string gradePoint = row["grade_point"] != DBNull.Value ? Convert.ToDecimal(row["grade_point"]).ToString("F2") : "0.00";
 
-                            string listItem = string.Format("{0,-12}{1,-25}{2,8}{3,8}{4,12}{5,15}",
-                                row["course_code"],
-                                row["course_name"],
-                                row["credits"],
-                                gradePoint,
-                                row["semester"],
-                                row["general_area"]
-                            );
-                            listBox1.Items.Add(listItem);
+                            ListViewItem item = new ListViewItem(row["course_number"].ToString());  // 수강번호
+                            item.SubItems.Add(row["course_code"].ToString());                       // 과목코드
+                            item.SubItems.Add(row["course_name"].ToString());                       // 과목명
+                            item.SubItems.Add(row["credits"].ToString());                           // 이수학점
+                            item.SubItems.Add(gradePoint);                                          // 성적
+                            item.SubItems.Add(row["course_type"].ToString());                       // 이수구분
+                            
+                            listView2.Items.Add(item);
                         }
                     }
                     else
                     {
-                        listBox1.Items.Add("수강 기록이 없습니다.");
+                        // 데이터가 없을 경우 메시지 표시
+                        ListViewItem emptyItem = new ListViewItem("수강 기록이 없습니다.");
+                        listView2.Items.Add(emptyItem);
                     }
                 }
             }
@@ -279,7 +294,6 @@ namespace SYU_DBP
 
             // 4. 이벤트 핸들러 연결 (디자이너에서 연결되지 않았다면 여기에 추가)
             SearchBtn.Click += new EventHandler(SearchBtn_Click);
-            Coursecode_PrintBtn.Click += new EventHandler(Coursecode_PrintBtn_Click);
             ResetBtn.Click += new EventHandler(ResetBtn_Click);
 
         }
@@ -303,32 +317,8 @@ namespace SYU_DBP
             selectedCourseNumber = string.Empty;
         }
 
-        private void Coursecode_PrintBtn_Click(object sender, EventArgs e)
-        {
-            // 1. 현재 선택된 행이 있는지 확인
-            if (dataGridView1.CurrentRow == null || dataGridView1.CurrentRow.Index < 0)
-            {
-                MessageBox.Show("목록에서 과목을 먼저 선택해 주세요.", "선택 오류");
-                return;
-            }
 
-            try
-            {
-                // 2. ★PK 값 추출 (선택된 행의 'course_number' 컬럼 값)★
-                // DataGridView는 컬럼 이름으로 값에 접근할 수 있어 매우 편리합니다.
-                selectedCourseNumber = dataGridView1.CurrentRow.Cells["course_number"].Value.ToString();
-
-                // 3. 폼 5 호출 (이전 로직 유지)
-                Form5 newForm = new Form5(selectedCourseNumber);
-                newForm.Show();
-            }
-            catch (Exception ex)
-            {
-                // 컬럼 이름을 찾지 못했거나 값이 null일 경우 오류 처리
-                MessageBox.Show("상세 폼 로드 중 오류 발생: " + ex.Message, "오류");
-            }
-        }
-
+        
         private void SearchBtn_Click(object sender, EventArgs e)
         {
             // 1. 동적 WHERE 절 생성
@@ -432,6 +422,8 @@ namespace SYU_DBP
             }
         }
         
+        //졸업 시뮬 영역
+
         private void LoadGraduationSimulation()
         {
             // ====================================================
@@ -443,14 +435,14 @@ namespace SYU_DBP
             int requiredMajor = 0;
             int requiredGeneral = 0;
             int requiredChapel = 0;
-            int requiredEssentialGeneral = 0; // 필수 교양 요구 학점 (INT 타입으로 최종 변경됨)
+            int requiredEssentialGeneral = 0;
 
             // 이수 현황 변수 (Grade, Course 테이블)
             int earnedTotal = 0;
             int earnedMajor = 0;
             int earnedGeneral = 0;
             int earnedChapel = 0;
-            int earnedEssentialGeneral = 0; // 필수 교양 취득 학점 (현재 쿼리상 0으로 초기화)
+            int earnedEssentialGeneral = 0;
 
             // 학과 코드 및 입학년도 변수
             string studentDeptCode = string.Empty;
@@ -459,7 +451,6 @@ namespace SYU_DBP
             // ----------------------------------------------------
             // B. ListView 설정 (View.Details 및 컬럼 정의)
             // ----------------------------------------------------
-            // 주의: Columns.Clear()를 호출하지 않으면 탭 로드 시 컬럼이 중복 추가됩니다.
             listViewGradStatus.Clear();
             listViewGradStatus.View = View.Details;
             listViewGradStatus.FullRowSelect = true;
@@ -472,7 +463,7 @@ namespace SYU_DBP
                 listViewGradStatus.Columns.Add("총 이수 학점", 120, HorizontalAlignment.Center);
                 listViewGradStatus.Columns.Add("전공 학점", 120, HorizontalAlignment.Center);
                 listViewGradStatus.Columns.Add("교양 학점", 120, HorizontalAlignment.Center);
-                listViewGradStatus.Columns.Add("필수교양 학점", 120, HorizontalAlignment.Center);
+                listViewGradStatus.Columns.Add("필수교양 이수", 120, HorizontalAlignment.Center);
                 listViewGradStatus.Columns.Add("채플 횟수", 120, HorizontalAlignment.Center);
             }
 
@@ -481,19 +472,41 @@ namespace SYU_DBP
                 using (var db = new DBClass("syu", "1111"))
                 {
                     // ----------------------------------------------------
-                    // C. DB 조회: 학과 코드 확보
+                    // C. DB 조회: 학생 개인정보 조회 및 라벨 매핑
                     // ----------------------------------------------------
-                    string deptQuery = "SELECT DEPARTMENT_CODE FROM STUDENT WHERE STUDENT_ID = :sid";
-                    OracleParameter pSidDept = new OracleParameter("sid", _studentId);
-                    object deptResult = db.ExecuteScalar(deptQuery, pSidDept);
+                    string personalInfoQuery = @"
+                    SELECT 
+                        s.STUDENT_ID,
+                        s.NAME,
+                        s.DEPARTMENT_CODE,
+                        d.DEPARTMENT_NAME,
+                        s.GRADE,
+                        p.PHONE_NUMBER
+                    FROM STUDENT s
+                    LEFT JOIN DEPARTMENT d ON s.DEPARTMENT_CODE = d.DEPARTMENT_CODE
+                    LEFT JOIN PERSONALINFO p ON s.STUDENT_ID = p.STUDENT_ID
+                    WHERE s.STUDENT_ID = :sid";
 
-                    if (deptResult != null)
+                    OracleParameter pSidInfo = new OracleParameter("sid", _studentId);
+                    DataTable dtInfo = db.GetDataTable(personalInfoQuery, pSidInfo);
+
+                    if (dtInfo != null && dtInfo.Rows.Count > 0)
                     {
-                        studentDeptCode = deptResult.ToString();
+                        DataRow infoRow = dtInfo.Rows[0];
+                        
+                        // 개인정보 라벨에 값 매핑
+                        Stid_label.Text = infoRow["STUDENT_ID"].ToString();
+                        Stname_label.Text = infoRow["NAME"].ToString();
+                        st_Dapartment_label.Text = infoRow["DEPARTMENT_NAME"].ToString();
+                        StGrade_label.Text = infoRow["GRADE"].ToString() + "학년";
+                        stPhoneNum_label.Text = infoRow["PHONE_NUMBER"].ToString();
+                        Admission_label.Text = admissionYear + "년"; // 학번에서 추출한 입학년도
+                        
+                        studentDeptCode = infoRow["DEPARTMENT_CODE"].ToString();
                     }
                     else
                     {
-                        MessageBox.Show("학생의 학과 코드를 찾을 수 없습니다.", "오류");
+                        MessageBox.Show("학생 정보를 찾을 수 없습니다.", "오류");
                         return;
                     }
 
@@ -502,19 +515,16 @@ namespace SYU_DBP
                     // ----------------------------------------------------
                     string reqQuery = @"
                 SELECT
-    GRADUATION_ID,
-    ADMISSION_YEAR,
-    DEPARTMENT_CODE,
-    EARNED_CREDITS,      
-    GENERAL_CREDITS,      
-    MAJOR_CREDITS,        
-    MATERIAL_COMPLETION_COUNT, 
-    REQUIRED_GENERAL_DETAILS
-FROM
-    GraduationRequirement
-WHERE
-    ADMISSION_YEAR = :year
-    AND DEPARTMENT_CODE = :dept";
+                    EARNED_CREDITS,      
+                    GENERAL_CREDITS,      
+                    MAJOR_CREDITS,        
+                    MATERIAL_COMPLETION_COUNT, 
+                    CHAPEL_COMPLETION_COUNT
+                FROM
+                    GraduationRequirement
+                WHERE
+                    ADMISSION_YEAR = :year
+                    AND DEPARTMENT_CODE = :dept";
 
                     OracleParameter pYear = new OracleParameter("year", admissionYear);
                     OracleParameter pDept = new OracleParameter("dept", studentDeptCode);
@@ -522,64 +532,106 @@ WHERE
 
                     if (dtReq != null && dtReq.Rows.Count > 0)
                     {
-                        requiredTotal = Convert.ToInt32(dtReq.Rows[0]["earned_credits"]);
-                        requiredMajor = Convert.ToInt32(dtReq.Rows[0]["major_credits"]);
-                        requiredGeneral = Convert.ToInt32(dtReq.Rows[0]["general_credits"]);
-                        requiredChapel = Convert.ToInt32(dtReq.Rows[0]["material_completion_count"]);
-                        requiredEssentialGeneral = Convert.ToInt32(dtReq.Rows[0]["REQUIRED_GENERAL_DETAILS"]);
+                        requiredTotal = Convert.ToInt32(dtReq.Rows[0]["EARNED_CREDITS"]);
+                        requiredMajor = Convert.ToInt32(dtReq.Rows[0]["MAJOR_CREDITS"]);
+                        requiredGeneral = Convert.ToInt32(dtReq.Rows[0]["GENERAL_CREDITS"]);
+                        requiredEssentialGeneral = Convert.ToInt32(dtReq.Rows[0]["MATERIAL_COMPLETION_COUNT"]);
+                        requiredChapel = Convert.ToInt32(dtReq.Rows[0]["CHAPEL_COMPLETION_COUNT"]);
                     }
-                    /*
+                    else
+                    {
+                        MessageBox.Show($"{admissionYear}년도 {studentDeptCode} 학과의 졸업요건을 찾을 수 없습니다.", "데이터 없음");
+                        return;
+                    }
+
                     // ----------------------------------------------------
                     // E. DB 조회: 학생 이수 현황(Progress) 계산
                     // ----------------------------------------------------
                     string progQuery = @"
-    SELECT 
-        COALESCE(SUM(G.credits), 0) AS EARNED_TOTAL, 
-        COALESCE(SUM(CASE WHEN C.course_type IN ('전공필수', '전공선택') THEN G.credits ELSE 0 END), 0) AS EARNED_MAJOR,
-        COALESCE(SUM(CASE WHEN C.course_type IN ('교양필수', '교양선택') THEN G.credits ELSE 0 END), 0) AS EARNED_GENERAL,
-        COALESCE(SUM(CASE WHEN C.course_type = '교양필수' THEN G.credits ELSE 0 END), 0) AS EARNED_ESSENTIAL_GENERAL,
-        (SELECT COUNT(*) FROM ChapelCompletion WHERE STUDENT_ID = :sid) AS EARNED_CHAPEL 
-    FROM Grade G
-    JOIN Course C ON G.course_number = C.course_number
-    WHERE G.student_id = :sid";
+                    SELECT 
+                        COALESCE(SUM(G.credits), 0) AS EARNED_TOTAL, 
+                        COALESCE(SUM(CASE WHEN C.course_type IN ('전공필수', '전공선택') THEN G.credits ELSE 0 END), 0) AS EARNED_MAJOR,
+                        COALESCE(SUM(CASE WHEN C.course_type IN ('교양필수', '교양선택', '교양영역') THEN G.credits ELSE 0 END), 0) AS EARNED_GENERAL,
+                        COALESCE(COUNT(DISTINCT CASE WHEN C.general_area IS NOT NULL AND C.general_area != '' THEN C.general_area END), 0) AS EARNED_ESSENTIAL_GENERAL
+                    FROM Grade G
+                    JOIN Course C ON G.course_number = C.course_number
+                    WHERE G.student_id = :sid";
 
                     OracleParameter pSidProg = new OracleParameter("sid", _studentId);
                     DataTable dtProg = db.GetDataTable(progQuery, pSidProg);
 
-                    if (dtProg != null && dtProg.Rows.Count > 0 && dtProg.Rows[0]["EARNED_TOTAL"] != DBNull.Value)
+                    if (dtProg != null && dtProg.Rows.Count > 0)
                     {
-                        earnedTotal = Convert.ToInt32(dtProg.Rows[0]["EARNED_TOTAL"]);
-                        earnedMajor = Convert.ToInt32(dtProg.Rows[0]["EARNED_MAJOR"]);
-                        earnedGeneral = Convert.ToInt32(dtProg.Rows[0]["EARNED_GENERAL"]);
-                        earnedChapel = Convert.ToInt32(dtProg.Rows[0]["EARNED_CHAPEL"]);
-                        earnedEssentialGeneral = Convert.ToInt32(dtReq.Rows[0]["EARNED_GENERAL_DETAILS"]);
-
-                        // earnedEssentialGeneral은 현재 복잡한 쿼리가 필요하므로 0으로 유지
+                        earnedTotal = dtProg.Rows[0]["EARNED_TOTAL"] != DBNull.Value ? Convert.ToInt32(dtProg.Rows[0]["EARNED_TOTAL"]) : 0;
+                        earnedMajor = dtProg.Rows[0]["EARNED_MAJOR"] != DBNull.Value ? Convert.ToInt32(dtProg.Rows[0]["EARNED_MAJOR"]) : 0;
+                        earnedGeneral = dtProg.Rows[0]["EARNED_GENERAL"] != DBNull.Value ? Convert.ToInt32(dtProg.Rows[0]["EARNED_GENERAL"]) : 0;
+                        earnedEssentialGeneral = dtProg.Rows[0]["EARNED_ESSENTIAL_GENERAL"] != DBNull.Value ? Convert.ToInt32(dtProg.Rows[0]["EARNED_ESSENTIAL_GENERAL"]) : 0;
                     }
-                    */
+
+                    // 채플 이수 횟수는 별도 테이블이 없으므로 0으로 유지 (필요시 추가)
+                    earnedChapel = 0;
+
                     // ----------------------------------------------------
                     // F. ListView에 수평 구조로 출력
                     // ----------------------------------------------------
                     
                     // Row 1: 졸업 요구사항 (Required) 출력
                     ListViewItem itemReq = new ListViewItem("졸업 요구");
-                    itemReq.SubItems.Add(requiredTotal.ToString());     // 총 이수 학점
-                    itemReq.SubItems.Add(requiredMajor.ToString());     // 전공 학점
-                    itemReq.SubItems.Add(requiredGeneral.ToString());   // 교양 학점
-                    itemReq.SubItems.Add(requiredEssentialGeneral.ToString()); // 필수 교양 학점 (INT)
-                    itemReq.SubItems.Add(requiredChapel.ToString());    // 채플 횟수
+                    itemReq.SubItems.Add(requiredTotal.ToString());
+                    itemReq.SubItems.Add(requiredMajor.ToString());
+                    itemReq.SubItems.Add(requiredGeneral.ToString());
+                    itemReq.SubItems.Add(requiredEssentialGeneral.ToString() + "개 영역");
+                    itemReq.SubItems.Add(requiredChapel.ToString());
                     listViewGradStatus.Items.Add(itemReq);
 
-                    /*
                     // Row 2: 학생 취득 현황 (Earned) 출력
                     ListViewItem itemEarned = new ListViewItem("취득 현황");
-                    itemEarned.SubItems.Add(earnedTotal.ToString());     // 총 이수 학점
-                    itemEarned.SubItems.Add(earnedMajor.ToString());     // 전공 학점
-                    itemEarned.SubItems.Add(earnedGeneral.ToString());   // 교양 학점
-                    itemEarned.SubItems.Add(earnedEssentialGeneral.ToString()); // 필수 교양 (0 또는 실제 취득 값)
-                    itemEarned.SubItems.Add(earnedChapel.ToString());    // 채플 횟수
+                    itemEarned.SubItems.Add(earnedTotal.ToString());
+                    itemEarned.SubItems.Add(earnedMajor.ToString());
+                    itemEarned.SubItems.Add(earnedGeneral.ToString());
+                    itemEarned.SubItems.Add(earnedEssentialGeneral.ToString() + "개 영역");
+                    itemEarned.SubItems.Add(earnedChapel.ToString());
                     listViewGradStatus.Items.Add(itemEarned);
-                    */
+
+                    // Row 3: 부족분 (Remaining) 계산 및 출력
+                    ListViewItem itemRemaining = new ListViewItem("부족 학점");
+                    int remainTotal = Math.Max(0, requiredTotal - earnedTotal);
+                    int remainMajor = Math.Max(0, requiredMajor - earnedMajor);
+                    int remainGeneral = Math.Max(0, requiredGeneral - earnedGeneral);
+                    int remainEssential = Math.Max(0, requiredEssentialGeneral - earnedEssentialGeneral);
+                    int remainChapel = Math.Max(0, requiredChapel - earnedChapel);
+
+                    itemRemaining.SubItems.Add(remainTotal.ToString());
+                    itemRemaining.SubItems.Add(remainMajor.ToString());
+                    itemRemaining.SubItems.Add(remainGeneral.ToString());
+                    itemRemaining.SubItems.Add(remainEssential.ToString() + "개 영역");
+                    itemRemaining.SubItems.Add(remainChapel.ToString());
+                    
+                    // 부족분 행은 빨간색으로 표시
+                    itemRemaining.ForeColor = Color.Red;
+                    listViewGradStatus.Items.Add(itemRemaining);
+
+                    // ----------------------------------------------------
+                    // G. 졸업 가능 여부 판정 및 메시지 표시
+                    // ----------------------------------------------------
+                    bool canGraduate = (remainTotal == 0 && remainMajor == 0 && remainGeneral == 0 && 
+                                       remainEssential == 0 && remainChapel == 0);
+
+                    if (canGraduate)
+                    {
+                        MessageBox.Show("축하합니다! 졸업 요건을 모두 충족했습니다.", "졸업 가능", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                    else
+                    {
+                        string message = "졸업 요건 미충족:\n";
+                        if (remainTotal > 0) message += $"- 총 이수 학점: {remainTotal}학점 부족\n";
+                        if (remainMajor > 0) message += $"- 전공 학점: {remainMajor}학점 부족\n";
+                        if (remainGeneral > 0) message += $"- 교양 학점: {remainGeneral}학점 부족\n";
+                        if (remainEssential > 0) message += $"- 필수 교양 영역: {remainEssential}개 영역 부족\n";
+                        if (remainChapel > 0) message += $"- 채플: {remainChapel}회 부족\n";
+                        
+                        MessageBox.Show(message, "졸업 요건 미충족", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
                 }
             }
             catch (Exception ex)
@@ -587,6 +639,185 @@ WHERE
                 MessageBox.Show("졸업 현황 로드 중 오류 발생: " + ex.Message, "DB 오류");
             }
         }
+
+        // ============================================
+        // 학생 문의 영역
+        // ============================================
+        
+        /// <summary>
+        /// 문의 탭 초기 로드
+        /// </summary>
+        private void LoadInquiryTab()
+        {
+            try
+            {
+                LoadMyInquiries();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("문의 탭 로드 중 오류 발생: " + ex.Message, "오류");
+            }
+        }
+
+        /// <summary>
+        /// 내 문의 목록 로드
+        /// </summary>
+        private void LoadMyInquiries()
+        {
+            try
+            {
+                using (var db = new DBClass("syu", "1111"))
+                {
+                    _inquiryRepo = new InquiryRepository(db);
+                    DataTable dt = _inquiryRepo.GetInquiriesByStudent(_studentId);
+
+                    var listView = this.Controls.Find("listViewInquiries", true).FirstOrDefault() as ListView;
+                    if (listView == null) return;
+
+                    listView.Items.Clear();
+
+                    if (dt != null && dt.Rows.Count > 0)
+                    {
+                        foreach (DataRow row in dt.Rows)
+                        {
+                            ListViewItem item = new ListViewItem(row["inquiry_id"].ToString());
+                            item.SubItems.Add(row["category"].ToString());
+                            item.SubItems.Add(row["title"].ToString());
+                            item.SubItems.Add(row["inquiry_date"].ToString());
+                            item.SubItems.Add(row["status"].ToString());
+                            
+                            // 답변자 정보
+                            string answerer = row["answerer"] != DBNull.Value ? row["answerer"].ToString() : "-";
+                            item.SubItems.Add(answerer);
+
+                            // 답변 내용 추가 (새로운 컬럼)
+                            string answer = row["answer"] != DBNull.Value ? row["answer"].ToString() : "-";
+                            item.SubItems.Add(answer);
+
+                            // 답변 날짜 추가 (새로운 컬럼)
+                            string answerDate = row["answer_date"] != DBNull.Value 
+                                ? Convert.ToDateTime(row["answer_date"]).ToString("yyyy-MM-dd HH:mm") 
+                                : "-";
+                            item.SubItems.Add(answerDate);
+
+                            // 상태에 따라 색상 변경
+                            if (row["status"].ToString() == "답변완료")
+                            {
+                                item.ForeColor = Color.Green;
+                            }
+                            else if (row["status"].ToString() == "처리중")
+                            {
+                                item.ForeColor = Color.Orange;
+                            }
+                            else if (row["status"].ToString() == "대기중")
+                            {
+                                item.ForeColor = Color.Red;
+                            }
+
+                            // Tag에 전체 데이터 저장
+                            item.Tag = row;
+
+                            listView.Items.Add(item);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("등록된 문의가 없습니다.", "알림");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("문의 목록 로드 중 오류 발생: " + ex.Message, "오류");
+            }
+        }
+
+        private void btnInquirySubmit_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                var cmbCategory = this.Controls.Find("cmbInquiryCategory", true).FirstOrDefault() as ComboBox;
+                var txtTitle = this.Controls.Find("txtInquiryTitle", true).FirstOrDefault() as TextBox;
+                var txtContent = this.Controls.Find("txtInquiryContent", true).FirstOrDefault() as TextBox;
+
+                if (cmbCategory == null || txtTitle == null || txtContent == null)
+                {
+                    MessageBox.Show("입력 컨트롤을 찾을 수 없습니다.", "오류");
+                    return;
+                }
+
+                // 유효성 검증
+                if (cmbCategory.SelectedIndex < 0)
+                {
+                    MessageBox.Show("문의 유형을 선택해주세요.", "입력 오류");
+                    cmbCategory.Focus();
+                    return;
+                }
+
+                string title = txtTitle.Text.Trim();
+                if (string.IsNullOrEmpty(title))
+                {
+                    MessageBox.Show("제목을 입력해주세요.", "입력 오류");
+                    txtTitle.Focus();
+                    return;
+                }
+
+                string content = txtContent.Text.Trim();
+                if (string.IsNullOrEmpty(content))
+                {
+                    MessageBox.Show("문의 내용을 입력해주세요.", "입력 오류");
+                    txtContent.Focus();
+                    return;
+                }
+
+                // 확인 메시지
+                DialogResult result = MessageBox.Show(
+                    "문의를 작성하시겠습니까?",
+                    "문의 작성 확인",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result != DialogResult.Yes) return;
+
+                // 문의 등록
+                using (var db = new DBClass("syu", "1111"))
+                {
+                    _inquiryRepo = new InquiryRepository(db);
+                    
+                    string category = cmbCategory.SelectedItem.ToString();
+                    bool success = _inquiryRepo.InsertInquiry(_studentId, category, title, content);
+
+                    if (success)
+                    {
+                        MessageBox.Show("문의가 성공적으로 등록되었습니다.", "성공");
+                        
+                        // 입력 폼 초기화
+                        cmbCategory.SelectedIndex = 0;
+                        txtTitle.Clear();
+                        txtContent.Clear();
+                        
+                        // 목록 새로고침
+                        LoadMyInquiries();
+                    }
+                    else
+                    {
+                        MessageBox.Show("문의 등록에 실패했습니다.", "오류");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("문의 작성 중 오류 발생: " + ex.Message, "오류");
+            }
+        }
+
+        private void listViewInquiries_SelectedIndexChanged(object sender, EventArgs e)
+        {
+        
+        }
+
+
 
     }
 }

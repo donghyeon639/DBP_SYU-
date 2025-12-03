@@ -85,6 +85,7 @@
     <Compile Include="Grade_ScoreRepository.cs" />
     <Compile Include="GraduationRequirementRepository.cs" />
     <Compile Include="GraduationReviewRepository.cs" />
+    <Compile Include="InquiryRepository.cs" />
     <Compile Include="LoginRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
